@@ -9,6 +9,11 @@ const PORT = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
+app.use(cors({
+    origin: "http://localhost:3000", // Replace * with frontend URL
+    credentials: true,
+}));
+
 
 // 🔹 Configure Express Session
 app.use(session({
@@ -45,7 +50,7 @@ app.get('/callback', async (req, res) => {
         }), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 
         req.session.accessToken = response.data.access_token; // Store token in session
-        res.redirect('/userdata'); // Redirect to /userdata without token in URL
+        res.redirect('http://localhost:3000/dashboard'); // Redirect to /userdata without token in URL
     } catch (error) {
         console.error('Error getting token:', error.response?.data || error.message);
         res.status(500).send('Authentication failed');

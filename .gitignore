@@ -1,5 +1,7 @@
 # Node.js dependencies  
 node_modules/  
+/.pnp
+.pnp.js
 
 # Environment variables  
 server/.env  
