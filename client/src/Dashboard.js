@@ -1,20 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useUserData } from "./UserDataContext";
 
 function Dashboard() {
-    const [userData, setUserData] = useState(null);
-    const [error, setError] = useState(null);
+    const userData = useUserData();
 
-    useEffect(() => {
-        fetch('http://localhost:5001/userdata', { credentials: 'include' }) // Include session cookie
-            .then((res) => {
-                if (!res.ok) throw new Error("Failed to fetch data");
-                return res.json();
-            })
-            .then((data) => setUserData(data))
-            .catch((err) => setError(err.message));
-    }, []);
-
-    if (error) return <h1>Error: {error}</h1>;
     if (!userData) return <h1>Loading Data...</h1>;
 
     return (

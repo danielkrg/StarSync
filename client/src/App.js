@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //import axios from "axios";
 import Dashboard from './Dashboard';
+import { UserDataProvider } from "./UserDataContext";
 
 function Home() {
   const handleLogin = () => {
@@ -19,12 +20,14 @@ function Home() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </Router>
+    <UserDataProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </Router>
+    </UserDataProvider>
   );
 }
 
