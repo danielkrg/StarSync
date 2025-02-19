@@ -1,19 +1,41 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 const UserDataContext = createContext();
 
 export function UserDataProvider({ children }) {
-    const [userData, setUserData] = useState(null);
+    const [displayName, setDisplayName] = useState("")
+    const [longTermData, setLongTermData] = useState(null);
+    const [shortTermData, setShortTermData] = useState(null);
+
+    // Function to fetch long-term data
+    const fetchLongTermData = async () => {
+        try {
+            const response = await axios.get("http://localhost:5001/userdata?time_range=long_term", { withCredentials: true });
+            setDisplayName(response.data.displayName);
+            setLongTermData(response.data);
+        } catch (error) {
+            console.error("Error fetching long-term user data:", error);
+        }
+    };
+
+    // Function to fetch short-term data
+    const fetchShortTermData = async () => {
+        try {
+            const response = await axios.get("http://localhost:5001/userdata?time_range=short_term", { withCredentials: true });
+            setShortTermData(response.data);
+        } catch (error) {
+            console.error("Error fetching short-term user data:", error);
+        }
+    };
 
     useEffect(() => {
-        axios.get("http://localhost:5001/userdata", { withCredentials: true })
-            .then(response => setUserData(response.data))
-            .catch(error => console.error("Error fetching user data:", error));
+        fetchLongTermData();
+        fetchShortTermData();
     }, []);
 
     return (
-        <UserDataContext.Provider value={userData}>
+        <UserDataContext.Provider value={{ displayName, longTermData, shortTermData, fetchLongTermData, fetchShortTermData }}>
             {children}
         </UserDataContext.Provider>
     );

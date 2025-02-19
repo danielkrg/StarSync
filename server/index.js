@@ -10,12 +10,11 @@ const PORT = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:3000", // Replace * with frontend URL
+    origin: "http://localhost:3000",
     credentials: true,
 }));
 
 
-// 🔹 Configure Express Session
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -50,7 +49,7 @@ app.get('/callback', async (req, res) => {
         }), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 
         req.session.accessToken = response.data.access_token; // Store token in session
-        res.redirect('http://localhost:3000/dashboard'); // Redirect to /userdata without token in URL
+        res.redirect('http://localhost:3000/dashboard'); // Redirect to front end
     } catch (error) {
         console.error('Error getting token:', error.response?.data || error.message);
         res.status(500).send('Authentication failed');
@@ -63,7 +62,10 @@ app.get('/userdata', async (req, res) => {
     if (!accessToken) return res.status(401).send('Not authenticated');
 
     try {
-        const [tracksResponse, artistsResponse] = await Promise.all([
+        const [profileNameResponse, tracksResponse, artistsResponse] = await Promise.all([
+            axios.get('https://api.spotify.com/v1/me/', {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            }),
             axios.get('https://api.spotify.com/v1/me/top/tracks', {
                 headers: { Authorization: `Bearer ${accessToken}` },
                 params: { limit: 5, time_range: timeRange },
@@ -73,8 +75,10 @@ app.get('/userdata', async (req, res) => {
                 params: { limit: 5, time_range: timeRange },
             })
         ]);
+        const userName = profileNameResponse.data.display_name;
 
         res.json({
+            displayName: userName,
             topTracks: tracksResponse.data.items,
             topArtists: artistsResponse.data.items
         });
