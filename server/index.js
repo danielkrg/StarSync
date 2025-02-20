@@ -68,19 +68,32 @@ app.get('/userdata', async (req, res) => {
             }),
             axios.get('https://api.spotify.com/v1/me/top/tracks', {
                 headers: { Authorization: `Bearer ${accessToken}` },
-                params: { limit: 5, time_range: timeRange },
+                params: { limit: 10, time_range: timeRange },
             }),
             axios.get('https://api.spotify.com/v1/me/top/artists?', {
                 headers: { Authorization: `Bearer ${accessToken}` },
-                params: { limit: 5, time_range: timeRange },
+                params: { limit: 10, time_range: timeRange },
             })
         ]);
+
+        const topArtistData = artistsResponse.data.items.map(artist => ({
+            name: artist.name,
+            numFollowers: artist.followers.total,
+            genres: artist.genres
+        }));
+
+        const topTrackData = tracksResponse.data.items.map(track => ({
+            name: track.name,   
+            artists: track.artists.map(artist => artist.name), 
+            popularity: track.popularity
+        }));
+
         const userName = profileNameResponse.data.display_name;
 
         res.json({
             displayName: userName,
-            topTracks: tracksResponse.data.items,
-            topArtists: artistsResponse.data.items
+            topTracks: topTrackData,
+            topArtists: topArtistData
         });
     } catch (error) {
         console.error('Error fetching data:', error.response?.data || error.message);

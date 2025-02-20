@@ -4,7 +4,6 @@ import axios from "axios";
 const UserDataContext = createContext();
 
 export function UserDataProvider({ children }) {
-    const [displayName, setDisplayName] = useState("")
     const [longTermData, setLongTermData] = useState(null);
     const [shortTermData, setShortTermData] = useState(null);
 
@@ -12,7 +11,6 @@ export function UserDataProvider({ children }) {
     const fetchLongTermData = async () => {
         try {
             const response = await axios.get("http://localhost:5001/userdata?time_range=long_term", { withCredentials: true });
-            setDisplayName(response.data.displayName);
             setLongTermData(response.data);
         } catch (error) {
             console.error("Error fetching long-term user data:", error);
@@ -35,7 +33,7 @@ export function UserDataProvider({ children }) {
     }, []);
 
     return (
-        <UserDataContext.Provider value={{ displayName, longTermData, shortTermData, fetchLongTermData, fetchShortTermData }}>
+        <UserDataContext.Provider value={{ longTermData, shortTermData, fetchLongTermData, fetchShortTermData }}>
             {children}
         </UserDataContext.Provider>
     );
