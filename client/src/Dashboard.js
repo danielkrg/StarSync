@@ -1,4 +1,5 @@
 import { useUserData } from "./UserDataContext";
+import Horoscope from "./Horoscope";
 
 function Dashboard() {
     const { longTermData, shortTermData } = useUserData();
@@ -21,6 +22,7 @@ function Dashboard() {
                     <li key={index}>{artist.name}</li>
                 ))}
             </ul>
+            <Horoscope/>
         </div>
     );
 }
