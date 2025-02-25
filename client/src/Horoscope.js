@@ -2,12 +2,13 @@ import React from "react";
 import GenerateHoroscope from "./HoroscopeAlgorithm";
 
 function Horoscope() {
-    const horoscope = GenerateHoroscope();
+    const horoscopeArr = GenerateHoroscope();
+    console.log(horoscopeArr)
 
     return (
         <div>
             <h2>Your Musical Horoscope</h2>
-            <p>{horoscope}</p>
+            <p>{horoscopeArr[0]}</p>
         </div>
     );
 }

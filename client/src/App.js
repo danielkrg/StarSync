@@ -1,7 +1,6 @@
-//import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-//import axios from "axios";
 import Dashboard from './Dashboard';
+import Horoscope from "./Horoscope";
 import { UserDataProvider } from "./UserDataContext";
 
 function Home() {
@@ -25,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/horoscope" element={<Horoscope />} />
         </Routes>
       </Router>
     </UserDataProvider>
