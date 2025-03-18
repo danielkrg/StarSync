@@ -3,7 +3,6 @@ import GenerateHoroscope from "./HoroscopeAlgorithm";
 
 function Horoscope() {
     const horoscopeArr = GenerateHoroscope();
-    console.log(horoscopeArr)
 
     return (
         <div>

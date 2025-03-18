@@ -62,7 +62,7 @@ app.get('/userdata', async (req, res) => {
     if (!accessToken) return res.status(401).send('Not authenticated');
 
     try {
-        const [profileNameResponse, tracksResponse, artistsResponse] = await Promise.all([
+        const [profileNameResponse, tracksResponse, artistsResponse, playlistResponse] = await Promise.all([
             axios.get('https://api.spotify.com/v1/me/', {
                 headers: { Authorization: `Bearer ${accessToken}` },
             }),
@@ -73,6 +73,9 @@ app.get('/userdata', async (req, res) => {
             axios.get('https://api.spotify.com/v1/me/top/artists?', {
                 headers: { Authorization: `Bearer ${accessToken}` },
                 params: { limit: 10, time_range: timeRange },
+            }),
+            axios.get('https://api.spotify.com/v1/me/playlists?', {
+                headers: { Authorization: `Bearer ${accessToken}` }
             })
         ]);
 
@@ -85,7 +88,30 @@ app.get('/userdata', async (req, res) => {
         const topTrackData = tracksResponse.data.items.map(track => ({
             name: track.name,   
             artists: track.artists.map(artist => artist.name), 
+            album: track.album.id, 
             popularity: track.popularity
+        }));
+
+        const albumIds = [... new Set(topTrackData.map(track => track.album))];
+        const albumRequests = albumIds.map(id =>
+            axios.get(`https://api.spotify.com/v1/albums/${id}`, {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            })
+        );
+        const albumResponses = await Promise.all(albumRequests);
+
+        const albumDataMap = {};
+        albumResponses.forEach(response => {
+            const album = response.data;
+            albumDataMap[album.id] = {
+                name: album.name,
+                popularity: album.popularity,
+                genres: album.genres
+            };
+        });
+
+        const playlistData = playlistResponse.data.items.map(playlist => ({
+            name: playlist.name
         }));
 
         const userName = profileNameResponse.data.display_name;
@@ -93,7 +119,9 @@ app.get('/userdata', async (req, res) => {
         res.json({
             displayName: userName,
             topTracks: topTrackData,
-            topArtists: topArtistData
+            topArtists: topArtistData,
+            topAlbums: albumDataMap,
+            playlists: playlistData
         });
     } catch (error) {
         console.error('Error fetching data:', error.response?.data || error.message);
