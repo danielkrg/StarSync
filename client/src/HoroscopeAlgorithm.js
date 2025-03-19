@@ -1,5 +1,5 @@
 import { useUserData } from "./UserDataContext";
-import {transitions, unpopularArray, popularArray} from "./HoroscopeArrays";
+import {transitions, unpopularArray, popularArray, similarArray, notSimilarArray} from "./HoroscopeArrays";
 
 const GenerateHoroscope = () => {
     const { longTermData, shortTermData } = useUserData();
@@ -13,7 +13,7 @@ const GenerateHoroscope = () => {
     const longTopAlbums = longTermData.topAlbums
     const longTopTracks = longTermData.topTracks
     const userName = shortTermData.displayName
-    const playlists = shortTermData.playlists
+    const playlists = [...shortTermData.playlists?.map(playlist => playlist.name) || []]
 
     const allGenres = [
         ... longTopArtists.map(artist => artist.genres),
@@ -25,6 +25,11 @@ const GenerateHoroscope = () => {
         ...(longTopAlbums ? Object.values(longTopAlbums).map(album => album.popularity) : []),
         ...(shortTopAlbums ? Object.values(shortTopAlbums).map(album => album.popularity) : [])
     ];
+
+    const shortTrackNames = [...shortTopTracks?.map(track => track.name) || []]
+    const longTrackNames = [...longTopTracks?.map(track => track.name) || []]
+
+    // ADD DEFAULT CASES FOR WHEN RESPONSES ARE EMPTY
 
     const generatePopularityHoroscope = () => {
         const minPopularity = Math.min(...popularity)
@@ -55,8 +60,33 @@ const GenerateHoroscope = () => {
 
         return response
     }
+
+    const generateSimilarityHoroscope = () => {
+        let numSame = 0
+        let response = ""
+        let i = Math.floor(Math.random() * similarArray.length);
+        let j = Math.floor(Math.random() * similarArray.length);
+        while(j === i) {
+            j = Math.floor(Math.random() * similarArray.length);
+        }
+
+        shortTrackNames.forEach((track) => {
+            if (longTrackNames.includes(track)) {
+                numSame += 1;
+            }
+        });
+        if (numSame >= 4) {
+            response += similarArray[i] + " " + similarArray[j]
+        }
+        else {
+            response += notSimilarArray[i] + " " + notSimilarArray[j]
+        }
+
+        return response
+    }
+
     
-    return [generatePopularityHoroscope()];
+    return [generatePopularityHoroscope(), generateSimilarityHoroscope()];
 };
 
 export default GenerateHoroscope;

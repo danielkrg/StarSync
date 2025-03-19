@@ -21,4 +21,20 @@ export const popularArray = [
     "You embrace the anthems of the age, carried by melodies that move the world.",
     "Your heart beats to the sound of the people—what you love, they love too.",
     "You find comfort in the known, in echoes that repeat yet never fade.",
+]
+
+export const similarArray = [
+    "Like the phases of the moon your path remains steadfastly consistent and unshakened.",
+    "You may at times reminisce on your past, a time when things were simpler.", 
+    "Your nature is that of a steady flame, ready to burst into an inferno at any moment.",
+    "The stardust that your being is comprised of shimmers brightly.",
+    "Your present and future selves will meet in a dance, a flurry of ___"
+]
+
+export const notSimilarArray = [
+    "Like a traveller, your spirit is free and seeks new adventures.",
+    "Your past does not bind you, and change is accepted if not sought.",
+    "You are one of many passions and interests, and enter everything wholeheartedly.",
+    "Variety is the spice of life, is it not?",
+    "Make sure you have an anchor. Something that will keep you focused on the right track."
 ];
