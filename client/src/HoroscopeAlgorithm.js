@@ -1,60 +1,48 @@
 import { useUserData } from "./UserDataContext";
-import {transitions, unpopularArray, popularArray, similarArray, notSimilarArray} from "./HoroscopeArrays";
+import {opposingTransitionsArray, agreeingTransitionsArray, unpopularArray, popularArray, similarArray, notSimilarArray, options, happyArray, balancedArray, introspectiveArray} from "./HoroscopeArrays";
+const Sentiment = require("sentiment");
 
 const GenerateHoroscope = () => {
     const { longTermData, shortTermData } = useUserData();
 
     if (!longTermData || !shortTermData) return ["Loading horoscope..."];
 
-    const shortTopArtists = shortTermData.topArtists
-    const shortTopAlbums = shortTermData.topAlbums
-    const shortTopTracks = shortTermData.topTracks
-    const longTopArtists = longTermData.topArtists
-    const longTopAlbums = longTermData.topAlbums
-    const longTopTracks = longTermData.topTracks
-    const userName = shortTermData.displayName
-    const playlists = [...shortTermData.playlists?.map(playlist => playlist.name) || []]
+    const sentiment = new Sentiment();
 
-    const allGenres = [
-        ... longTopArtists.map(artist => artist.genres),
-        ... shortTopArtists.map(artist => artist.genres)
-    ]
-    const popularity = [
-        ...(longTopTracks?.map(track => track.popularity) || []),
-        ...(shortTopTracks?.map(track => track.popularity) || []),
-        ...(longTopAlbums ? Object.values(longTopAlbums).map(album => album.popularity) : []),
-        ...(shortTopAlbums ? Object.values(shortTopAlbums).map(album => album.popularity) : [])
-    ];
-
-    const shortTrackNames = [...shortTopTracks?.map(track => track.name) || []]
-    const longTrackNames = [...longTopTracks?.map(track => track.name) || []]
+    const data = initializeVariables(longTermData, shortTermData);
 
     // ADD DEFAULT CASES FOR WHEN RESPONSES ARE EMPTY
 
     const generatePopularityHoroscope = () => {
-        const minPopularity = Math.min(...popularity)
-        const maxPopularity = Math.max(...popularity)
-        const avgPopularity = popularity.reduce((a, b) => a + b) / popularity.length
+        const minPopularity = Math.min(...data.popularity)
+        const maxPopularity = Math.max(...data.popularity)
+        const avgPopularity = data.popularity.reduce((a, b) => a + b, 0) / data.popularity.length
 
         let response = ""
 
         let i = Math.floor(Math.random() * unpopularArray.length);
         let j = Math.floor(Math.random() * unpopularArray.length);
-        while(j === i) {
+        let l = Math.floor(Math.random() * opposingTransitionsArray.length);
+
+        while (i === j) {
             j = Math.floor(Math.random() * unpopularArray.length);
         }
-        let l = Math.floor(Math.random() * transitions.length);
 
         if (avgPopularity < 50) {
             response += unpopularArray[i] + " " + unpopularArray[j]
+
             if (maxPopularity >= avgPopularity * 1.6 || maxPopularity >= minPopularity * 2.5) {
-                response += " " + transitions[l] + popularArray[i].toLowerCase()
+                i = Math.floor(Math.random() * popularArray.length);
+                response += " " + opposingTransitionsArray[l] + popularArray[i].toLowerCase();
             }
         }
         else {
             response += popularArray[i] + " " + popularArray[j]
-            if (minPopularity <= avgPopularity * 0.6 || maxPopularity >= minPopularity * 2.5) {
-                response +=  " " + transitions[l] + unpopularArray[i].toLowerCase()
+
+            if (maxPopularity >= avgPopularity * 1.6 || maxPopularity >= minPopularity * 2.5) {
+                console.log(unpopularArray)
+                i = Math.floor(Math.random() * unpopularArray.length);
+                response += " " + opposingTransitionsArray[l] + unpopularArray[i].toLowerCase();
             }
         }
 
@@ -70,8 +58,8 @@ const GenerateHoroscope = () => {
             j = Math.floor(Math.random() * similarArray.length);
         }
 
-        shortTrackNames.forEach((track) => {
-            if (longTrackNames.includes(track)) {
+        data.shortTrackNames.forEach((track) => {
+            if (data.longTrackNames.includes(track)) {
                 numSame += 1;
             }
         });
@@ -85,8 +73,94 @@ const GenerateHoroscope = () => {
         return response
     }
 
+    const generatePlaylistHoroscope = () => {
+        let scores = [];
+
+        let response = "";
+
+        data.playlists.forEach((playlist) => {
+            var sentimentScore = sentiment.analyze(playlist, options).score;
+            scores.push(sentimentScore);
+        });
+
+        let minScore = Math.min(scores);
+        let maxScore = Math.max(scores);
+        let numZeros = scores.reduce((total, x) => total + (x === 0), 0);
+        let avgScore = scores.reduce((a, b) => a + b, 0) / (scores.length - numZeros);
+
+        let i = Math.floor(Math.random() * happyArray.length);
+        let j = Math.floor(Math.random() * happyArray.length);
+        let l = Math.floor(Math.random() * agreeingTransitionsArray.length);
+
+        while (i === j) {
+            j = Math.floor(Math.random() * happyArray.length);
+        }
+
+        if (avgScore >= 3) {
+            response += happyArray[i] + " " + happyArray[j]
+            
+            if (minScore <= -5) {
+                i = Math.floor(Math.random() * introspectiveArray.length);
+
+                response += " " + agreeingTransitionsArray[l] + introspectiveArray[i].toLowerCase();
+            }
+        }
+        else if (avgScore <= -2) {
+            response += introspectiveArray[i] + " " + introspectiveArray[j]
+            
+            if (maxScore >= 5) {
+                i = Math.floor(Math.random() * happyArray.length);
+
+                response += " " + agreeingTransitionsArray[l] + happyArray[i].toLowerCase();
+            }
+        }
+        else {
+            response += balancedArray[i] + " " + balancedArray[j]
+            
+            if (minScore <= -5) {
+                i = Math.floor(Math.random() * introspectiveArray.length);
+
+                response += " " + agreeingTransitionsArray[l] + introspectiveArray[i].toLowerCase();
+            }
+            else if (maxScore >= 5) {
+                i = Math.floor(Math.random() * happyArray.length);
+
+                response += " " + agreeingTransitionsArray[l] + happyArray[i].toLowerCase();
+            }
+        }
+
+        return response
+    }
+
     
-    return [generatePopularityHoroscope(), generateSimilarityHoroscope()];
+    return [generatePopularityHoroscope(), generateSimilarityHoroscope(), generatePlaylistHoroscope()];
 };
+
+function initializeVariables(longTermData, shortTermData) {
+    return {
+        shortTopArtists: shortTermData.topArtists,
+        shortTopAlbums: shortTermData.topAlbums,
+        shortTopTracks: shortTermData.topTracks,
+        longTopArtists: longTermData.topArtists,
+        longTopAlbums: longTermData.topAlbums,
+        longTopTracks: longTermData.topTracks,
+        userName: shortTermData.displayName,
+        playlists: [...shortTermData.playlists?.map(playlist => playlist.name) || []],
+
+        allGenres: [
+            ...longTermData.topArtists?.map(artist => artist.genres || []),
+            ...shortTermData.topArtists?.map(artist => artist.genres || [])
+        ],
+        popularity: [
+            ...(longTermData.topTracks?.map(track => track.popularity) || []),
+            ...(shortTermData.topTracks?.map(track => track.popularity) || []),
+            ...(longTermData.topAlbums? Object.values(longTermData.topAlbums).map(album => album.popularity) : []),
+            ...(shortTermData.topAlbums? Object.values(shortTermData.topAlbums).map(album => album.popularity) : [])
+        ],
+
+        shortTrackNames: [...shortTermData.topTracks?.map(track => track.name) || []],
+        longTrackNames: [...longTermData.topTracks?.map(track => track.name) || []]
+    }
+} 
 
 export default GenerateHoroscope;

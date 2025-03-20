@@ -9,6 +9,7 @@ function Horoscope() {
             <h2>Your Musical Horoscope</h2>
             <p>{horoscopeArr[0]}</p>
             <p>{horoscopeArr[1]}</p>
+            <p>{horoscopeArr[2]}</p>
         </div>
     );
 }
