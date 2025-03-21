@@ -63,6 +63,13 @@ const GenerateHoroscope = () => {
                 numSame += 1;
             }
         });
+
+        data.shortArtistNames.forEach((artist) => {
+            if (data.longArtistNames.includes(artist)) {
+                numSame += 1;
+            }
+        });
+
         if (numSame >= 4) {
             response += similarArray[i] + " " + similarArray[j]
         }
@@ -159,7 +166,9 @@ function initializeVariables(longTermData, shortTermData) {
         ],
 
         shortTrackNames: [...shortTermData.topTracks?.map(track => track.name) || []],
-        longTrackNames: [...longTermData.topTracks?.map(track => track.name) || []]
+        longTrackNames: [...longTermData.topTracks?.map(track => track.name) || []],
+        shortArtistNames: [...shortTermData.topArtists?.map(artist => artist.name) || []],
+        longArtistNames: [...longTermData.topArtists?.map(artist => artist.name) || []]
     }
 } 
 
