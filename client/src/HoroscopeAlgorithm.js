@@ -14,6 +14,10 @@ const GenerateHoroscope = () => {
     // ADD DEFAULT CASES FOR WHEN RESPONSES ARE EMPTY
 
     const generatePopularityHoroscope = () => {
+        if (!data.popularity) {
+            return 'It seems as though you have beat our algorithm, you are an enigma.'
+        }
+
         const minPopularity = Math.min(...data.popularity)
         const maxPopularity = Math.max(...data.popularity)
         const avgPopularity = data.popularity.reduce((a, b) => a + b, 0) / data.popularity.length
@@ -50,6 +54,10 @@ const GenerateHoroscope = () => {
     }
 
     const generateSimilarityHoroscope = () => {
+        if (!data.shortTrackNames && !data.longTrackNames) {
+            return 'Your energy is something unique, a facinating array of complexity.'
+        }
+        
         let numSame = 0
         let response = ""
         let i = Math.floor(Math.random() * similarArray.length);
@@ -70,7 +78,7 @@ const GenerateHoroscope = () => {
             }
         });
 
-        if (numSame >= 4) {
+        if (numSame >= 6) {
             response += similarArray[i] + " " + similarArray[j]
         }
         else {
@@ -81,6 +89,10 @@ const GenerateHoroscope = () => {
     }
 
     const generatePlaylistHoroscope = () => {
+        if (!data.playlists) {
+            return 'Protect your spirit against those who may be wanting to harm.'
+        }
+        
         let scores = [];
 
         let response = "";
