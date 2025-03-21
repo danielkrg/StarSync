@@ -5,15 +5,14 @@ const Sentiment = require("sentiment");
 const GenerateHoroscope = () => {
     const { longTermData, shortTermData } = useUserData();
 
-    if (!longTermData || !shortTermData) return ["Loading horoscope..."];
-
     const sentiment = new Sentiment();
 
     const data = initializeVariables(longTermData, shortTermData);
 
-    // ADD DEFAULT CASES FOR WHEN RESPONSES ARE EMPTY
-
     const generatePopularityHoroscope = () => {
+        if (!data) {
+            return
+        }
         if (!data.popularity) {
             return 'It seems as though you have beat our algorithm, you are an enigma.'
         }
@@ -44,7 +43,6 @@ const GenerateHoroscope = () => {
             response += popularArray[i] + " " + popularArray[j]
 
             if (maxPopularity >= avgPopularity * 1.6 || maxPopularity >= minPopularity * 2.5) {
-                console.log(unpopularArray)
                 i = Math.floor(Math.random() * unpopularArray.length);
                 response += " " + opposingTransitionsArray[l] + unpopularArray[i].toLowerCase();
             }
@@ -54,6 +52,9 @@ const GenerateHoroscope = () => {
     }
 
     const generateSimilarityHoroscope = () => {
+        if (!data) {
+            return
+        }
         if (!data.shortTrackNames && !data.longTrackNames) {
             return 'Your energy is something unique, a facinating array of complexity.'
         }
@@ -89,6 +90,9 @@ const GenerateHoroscope = () => {
     }
 
     const generatePlaylistHoroscope = () => {
+        if (!data) {
+            return
+        }
         if (!data.playlists) {
             return 'Protect your spirit against those who may be wanting to harm.'
         }
@@ -156,6 +160,10 @@ const GenerateHoroscope = () => {
 };
 
 function initializeVariables(longTermData, shortTermData) {
+    if (!shortTermData || !longTermData) {
+        return
+    }
+
     return {
         shortTopArtists: shortTermData.topArtists,
         shortTopAlbums: shortTermData.topAlbums,
