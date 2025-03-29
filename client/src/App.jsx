@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from './Dashboard';
-import Horoscope from "./Horoscope";
-import { UserDataProvider } from "./UserDataContext";
+import Horoscope from './Horoscope';
+import { UserDataProvider } from './UserDataContext';
 import { useState, useEffect } from 'react';
+import Waves from './assets/layered-waves.svg?react'
 
 function Home() {
   const messages = ['Spotify Stats', 'Your Top Tracks', 'Music Horoscope', 'Log in to Begin'];
@@ -47,8 +48,8 @@ function Home() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-pink-950">
-      <div className="flex flex-col items-center space-y-30">
+    <div className="relative flex flex-col h-screen bg-pink-950 overflow-hidden">
+      <div className="flex flex-col items-center space-y-30 pt-50 flex-grow">
         <h1
           className="animate-blink overflow-hidden whitespace-nowrap 
           border-r-4 border-r-white 
@@ -66,6 +67,10 @@ function Home() {
         >
           Login with Spotify
         </button>
+      </div>
+
+      <div className="absolute bottom-0 left-0 w-full pointer-events-none">
+        <Waves className="w-full h-auto" />
       </div>
     </div>
   );
