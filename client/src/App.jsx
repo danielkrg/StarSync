@@ -2,31 +2,72 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from './Dashboard';
 import Horoscope from "./Horoscope";
 import { UserDataProvider } from "./UserDataContext";
+import { useState, useEffect } from 'react';
 
 function Home() {
+  const messages = ['Spotify Stats', 'Your Top Tracks', 'Music Horoscope', 'Log in to Begin'];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState('');
+  const [phase, setPhase] = useState('typing'); // 'typing', 'pausing', 'deleting'
+
+  useEffect(() => {
+    const currentMessage = messages[currentIndex];
+
+    let timeout;
+
+    if (phase === 'typing') {
+      if (displayedText.length < currentMessage.length) {
+        timeout = setTimeout(() => {
+          setDisplayedText(currentMessage.slice(0, displayedText.length + 1));
+        }, 100);
+      } else {
+        // Typing done → pause before deleting
+        setTimeout(() => setPhase('pausing'), 2500);
+      }
+    } else if (phase === 'pausing') {
+      // Just hold the message for a bit longer before deleting
+      timeout = setTimeout(() => setPhase('deleting'), 2000);
+    } else if (phase === 'deleting') {
+      if (displayedText.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplayedText(currentMessage.slice(0, displayedText.length - 1));
+        }, 50);
+      } else {
+        // Move to next message and start typing
+        setCurrentIndex((prev) => (prev + 1) % messages.length);
+        setPhase('typing');
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayedText, phase, currentIndex]);
+
   const handleLogin = () => {
-    window.location.href = "http://localhost:5001/login"; // Redirect to backend
+    window.location.href = "http://localhost:5001/login";
   };
 
   return (
-  <div className="flex justify-center items-center h-screen">
-    <div className="flex flex-col items-center space-y-30">
-      <h1 
-        className="animate-fadeInOut text-5xl text-white font-bold"
-      >
-        Spotify Stats
-      </h1>
-      <button 
-        onClick={handleLogin}
-        className="border-2 border-pink-600 hover:border-green-500 
-        font-semibold text-pink-600 hover:text-green-500
-        py-2 px-4 rounded-full 
-        transition-all duration-300 ease-in-out"
-      >
-        Login with Spotify
-      </button>
+    <div className="flex justify-center items-center h-screen bg-pink-950">
+      <div className="flex flex-col items-center space-y-30">
+        <h1
+          className="animate-blink overflow-hidden whitespace-nowrap 
+          border-r-4 border-r-white 
+          font-bold text-5xl text-pink-100 leading-tight h-14"
+        >
+          {displayedText}
+        </h1>
+
+        <button
+          onClick={handleLogin}
+          className="border-2 border-pink-600 hover:border-green-500 
+            font-semibold text-pink-600 hover:text-green-500
+            py-2 px-4 rounded-full 
+            transition-all duration-300 ease-in-out"
+        >
+          Login with Spotify
+        </button>
+      </div>
     </div>
-  </div>
   );
 }
 

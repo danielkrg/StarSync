@@ -1,29 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  font-family: Georgia;
-  line-height: 1.5;
+  font-family: monospace;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #771354;
 }
 
 @theme {
-  --animate-fadeInOut: fadeInOut 6s ease-in-out forwards;
+  --animate-fadeInOut: fadeInOut 6s ease-in-out forwards infinite;
   @keyframes fadeInOut {
     0% {
-      opacity: '0'
+      opacity: 0
     }
-    30% {
-      opacity: '1'
+    40% {
+      opacity: 1
     }
-    70% {
-      opacity: '1'
+    60% {
+      opacity: 1
     }
     100% {
-      opacity: '0'
+      opacity: 0
+    }
+  }
+
+  --animate-typing: typing 4s steps(13) infinite alternate;
+  --animate-blink: blink 0.7s infinite;
+  @keyframes typing {
+    0% {
+      width: 0%;
+      visibility: 'hidden';
+    }
+    25% {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: transparent
+    }
+    100% {
+      border-color: white
     }
   }
 }
