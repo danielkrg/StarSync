@@ -81,35 +81,16 @@ app.get('/userdata', async (req, res) => {
 
         const topArtistData = artistsResponse.data.items.map(artist => ({
             name: artist.name,
-            numFollowers: artist.followers.total,
-            genres: artist.genres
+            popularity: Math.round(artist.followers.total/30000000 * 100 * 100)/100
         }));
 
         const topTrackData = tracksResponse.data.items.map(track => ({
             name: track.name,   
-            artists: track.artists.map(artist => artist.name), 
-            album: track.album.id, 
+            artists: track.artists.map(artist => artist.name),
             popularity: track.popularity
         }));
 
-        const albumIds = [... new Set(topTrackData.map(track => track.album))];
-        const albumRequests = albumIds.map(id =>
-            axios.get(`https://api.spotify.com/v1/albums/${id}`, {
-                headers: { Authorization: `Bearer ${accessToken}` },
-            })
-        );
-        const albumResponses = await Promise.all(albumRequests);
-
-        const albumDataMap = {};
-        albumResponses.forEach(response => {
-            const album = response.data;
-            albumDataMap[album.id] = {
-                name: album.name,
-                popularity: album.popularity,
-                genres: album.genres
-            };
-        });
-
+        
         const playlistData = playlistResponse.data.items.map(playlist => ({
             name: playlist.name
         }));
@@ -120,11 +101,10 @@ app.get('/userdata', async (req, res) => {
             displayName: userName,
             topTracks: topTrackData,
             topArtists: topArtistData,
-            topAlbums: albumDataMap,
             playlists: playlistData
         });
     } catch (error) {
-        console.error('Error fetching data:', error.response?.data || error.message);
+        console.error('Error fetching data:', error.response?.data || error.message, error);
         res.status(500).send('Failed to fetch user data');
     }
 });

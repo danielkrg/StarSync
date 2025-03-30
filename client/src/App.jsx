@@ -49,7 +49,7 @@ function Home() {
 
   return (
     <div className="relative flex flex-col h-screen bg-gradient-to-t from-pink-950 from-50% to-indigo-950 overflow-hidden">
-      <div className="flex flex-col items-center space-y-30 pt-50 flex-grow">
+      <div className="flex flex-col items-center space-y-30 pt-50 flex-grow z-10">
         <h1
           className="animate-blink overflow-hidden whitespace-nowrap 
           border-r-4 border-r-white 
@@ -65,11 +65,11 @@ function Home() {
             py-2 px-4 rounded-full 
             transition-all duration-300 ease-in-out"
         >
-          Login with Spotify
+          Login With Spotify
         </button>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full pointer-events-none">
+      <div className="absolute bottom-0 left-0 w-full pointer-events-none z-0">
         <Waves className="w-full h-auto" />
       </div>
     </div>

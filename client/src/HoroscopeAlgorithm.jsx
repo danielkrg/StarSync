@@ -17,6 +17,12 @@ const GenerateHoroscope = () => {
             return 'It seems as though you have beat our algorithm, you are an enigma.'
         }
 
+        data.popularity.forEach((val, i) => {
+            if (val > 100) {
+                data.popularity[i] = 100
+            }
+        });
+
         const minPopularity = Math.min(...data.popularity)
         const maxPopularity = Math.max(...data.popularity)
         const avgPopularity = data.popularity.reduce((a, b) => a + b, 0) / data.popularity.length
@@ -166,23 +172,17 @@ function initializeVariables(longTermData, shortTermData) {
 
     return {
         shortTopArtists: shortTermData.topArtists,
-        shortTopAlbums: shortTermData.topAlbums,
         shortTopTracks: shortTermData.topTracks,
         longTopArtists: longTermData.topArtists,
-        longTopAlbums: longTermData.topAlbums,
         longTopTracks: longTermData.topTracks,
         userName: shortTermData.displayName,
         playlists: [...shortTermData.playlists?.map(playlist => playlist.name) || []],
 
-        allGenres: [
-            ...longTermData.topArtists?.map(artist => artist.genres || []),
-            ...shortTermData.topArtists?.map(artist => artist.genres || [])
-        ],
         popularity: [
             ...(longTermData.topTracks?.map(track => track.popularity) || []),
             ...(shortTermData.topTracks?.map(track => track.popularity) || []),
-            ...(longTermData.topAlbums? Object.values(longTermData.topAlbums).map(album => album.popularity) : []),
-            ...(shortTermData.topAlbums? Object.values(shortTermData.topAlbums).map(album => album.popularity) : [])
+            ...(longTermData.topArtists?.map(artist => artist.popularity) || []),
+            ...(shortTermData.topArtists?.map(artist => artist.popularity) || [])
         ],
 
         shortTrackNames: [...shortTermData.topTracks?.map(track => track.name) || []],
