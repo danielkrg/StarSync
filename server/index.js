@@ -81,13 +81,17 @@ app.get('/userdata', async (req, res) => {
 
         const topArtistData = artistsResponse.data.items.map(artist => ({
             name: artist.name,
-            popularity: Math.round(artist.followers.total/30000000 * 100 * 100)/100
+            popularity: Math.round(artist.followers.total/30000000 * 100 * 100)/100,
+            image: artist.images.length > 0 ? artist.images[0].url : null,
+            link: artist.external_urls.spotify
         }));
 
         const topTrackData = tracksResponse.data.items.map(track => ({
             name: track.name,   
             artists: track.artists.map(artist => artist.name),
-            popularity: track.popularity
+            popularity: track.popularity,
+            image: track.album.images.length > 0 ? track.album.images[0].url : null,
+            link: track.external_urls.spotify 
         }));
 
         
@@ -104,7 +108,7 @@ app.get('/userdata', async (req, res) => {
             playlists: playlistData
         });
     } catch (error) {
-        console.error('Error fetching data:', error.response?.data || error.message, error);
+        console.error('Error fetching data:', error.response?.data || error.message);
         res.status(500).send('Failed to fetch user data');
     }
 });

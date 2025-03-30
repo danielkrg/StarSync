@@ -8,52 +8,53 @@ function Dashboard() {
     }
 
     return (
-        <div>
-            <h1>Hello {shortTermData.displayName}</h1>
-            <h1>Your Top 10 Tracks Of All Time:</h1>
+        <div className="relative flex flex-col items-center justify-start h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
+            <h1 className="text-5xl font-bold text-pink-100 mt-10">
+                Hello {shortTermData.displayName}
+            </h1>
+
+            <div className="mt-8 text-2xl text-pink-100">
+                Top Songs of All Time
+            </div>
+
             {longTermData.topTracks && longTermData.topTracks.length > 0 ? (
-                <ul>
-                    {longTermData.topTracks?.map((track, index) => (
-                        <li key={index}>{track.name} by {track.artists[0]}</li>
-                    ))}
-                </ul>
+                <div className="p-10 ml-20 grid grid-cols-2 gap-full">
+                {longTermData.topTracks.map((track, index) => (
+                    <button
+                        key={index}
+                        onClick={() => window.open(track.link, '_blank')}
+                        className="border-2 border-transparent hover:border-green-500 rounded
+                        transition-all duration-300 ease-in-out">
+                        <div key={index} className="flex items-center p-4">
+                            <div className="w-15 text-4xl font-bold mr-4 text-left text-pink-100 opacity-40">
+                                {index + 1}
+                            </div>
+                            {track.image ? (
+                                <img
+                                src={track.image}
+                                alt={track.name}
+                                className="w-20 h-20 object-cover rounded scale-125"
+                                />
+                            ) : (
+                                <div className="w-20 h-20 bg-pink-100 opacity-20 rounded" />
+                            )}
+                            <div className="ml-10 flex flex-col text-left">
+                                <h3 className="text-lg font-semibold text-pink-100 grow">
+                                {track.name}
+                                </h3>
+                                <p className="text-sm text-pink-100 opacity-40">
+                                {track.artists[0]}
+                                </p>
+                            </div>
+                        </div>
+                    </button>
+                ))}
+                </div>
             ) : (
-                <p>You don't have any long term top track data yet</p>
-            )}
-
-            <h1>Your Top 10 Artists Of All Time:</h1>
-            {longTermData.topArtists && longTermData.topArtists.length > 0 ? (
-                <ul>
-                    {longTermData.topArtists?.map((artist) => (
-                        <li key={artist}>{artist.name} </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>You don't have any long term top artist data yet</p>
-            )}
-
-            <h1>Your Top 10 Tracks Lately:</h1>
-            {shortTermData.topTracks && shortTermData.topTracks.length > 0 ? (
-                <ul>
-                    {shortTermData.topTracks?.map((track, index) => (
-                        <li key={index}>{track.name} by {track.artists[0]}</li>
-                    ))}
-                </ul>
-            ) : (
-                <p>You don't have any short term top track data yet</p>
-            )}
-
-            <h1>Your Top 10 Artists Lately:</h1>
-            {shortTermData.topArtists && shortTermData.topArtists.length > 0 ? (
-                <ul>
-                    {shortTermData.topArtists?.map((artist) => (
-                        <li key={artist}>{artist.name} </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>You don't have any short term top artist data yet</p>
+                <p className="mt-6 text-white">No top tracks available.</p>
             )}
         </div>
+
     );
 }
 
