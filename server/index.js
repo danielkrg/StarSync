@@ -83,6 +83,7 @@ app.get('/userdata', async (req, res) => {
             name: artist.name,
             popularity: Math.round(artist.followers.total/30000000 * 100 * 100)/100,
             image: artist.images.length > 0 ? artist.images[0].url : null,
+            genres: artist.genres,
             link: artist.external_urls.spotify
         }));
 
