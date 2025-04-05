@@ -1,6 +1,6 @@
-import { useUserData } from "./UserDataContext";
-import { useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
+import { useUserData } from './UserDataContext';
+import { useState } from 'react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
 function Dashboard() {
     const { longTermData, shortTermData } = useUserData();
@@ -13,14 +13,14 @@ function Dashboard() {
     }
 
     const views = [
-        {label: "Top Songs of All Time", data: longTermData.topTracks},
-        {label: "Top Songs Lately", data: shortTermData.topTracks},
-        {label: "Top Artists of All Time", data: longTermData.topArtists},
-        {label: "Top Artists Lately", data: shortTermData.topArtists},
+        {label: 'Top Songs of All Time', data: longTermData.topTracks},
+        {label: 'Top Songs Lately', data: shortTermData.topTracks},
+        {label: 'Top Artists of All Time', data: longTermData.topArtists},
+        {label: 'Top Artists Lately', data: shortTermData.topArtists},
     ];
 
     const changeView = (direction) => {
-        if (direction == "left") {
+        if (direction == 'left') {
             setCurrentIndex((prev) => (prev - 1 + views.length) % views.length);
         }
         else {

@@ -21,14 +21,17 @@ function Home() {
         timeout = setTimeout(() => {
           setDisplayedText(currentMessage.slice(0, displayedText.length + 1));
         }, 100);
-      } else {
+      } 
+      else {
         // Typing done → pause before deleting
         setTimeout(() => setPhase('pausing'), 2500);
       }
-    } else if (phase === 'pausing') {
+    } 
+    else if (phase === 'pausing') {
       // Just hold the message for a bit longer before deleting
       timeout = setTimeout(() => setPhase('deleting'), 2000);
-    } else if (phase === 'deleting') {
+    } 
+    else if (phase === 'deleting') {
       if (displayedText.length > 0) {
         timeout = setTimeout(() => {
           setDisplayedText(currentMessage.slice(0, displayedText.length - 1));
@@ -51,10 +54,10 @@ function Home() {
     <div className="relative flex flex-col h-screen bg-gradient-to-t from-pink-950 from-50% to-indigo-950 overflow-hidden">
       <div className="flex flex-col items-center space-y-30 pt-50 flex-grow z-10">
         <h1
-          className="overflow-hidden whitespace-nowrap 
-          font-bold text-5xl text-pink-100 leading-tight h-14"
+          className="font-bold text-5xl text-pink-100 leading-tight h-14"
         >
           {displayedText}
+          <span className="animate-blinking-cursor">|</span>
         </h1>
 
         <button

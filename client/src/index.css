@@ -29,48 +29,13 @@
     }
   }
 
-  --animate-typing-1: typing .33s steps(1);
-  --animate-typing-2: typing .66s steps(2);
-  --animate-typing-3: typing 1s steps(3);
-  --animate-typing-4: typing 1.33s steps(4);
-  --animate-typing-5: typing 1.66s steps(5);
-  --animate-typing-6: typing 2s steps(6);
-  --animate-typing-7: typing 2.33s steps(7);
-  --animate-typing-8: typing 2.66s steps(8);
-  --animate-typing-9: typing 3s steps(9);
-  --animate-typing-10: typing 3.33s steps(10);
-  --animate-typing-11: typing 3.66s steps(11);
-  --animate-typing-12: typing 4s steps(12);
-  --animate-typing-13: typing 4.33s steps(13);
-  --animate-typing-14: typing 4.66s steps(14);
-  --animate-typing-15: typing 5s steps(15);
-  --animate-typing-16: typing 5.33s steps(16);
-  --animate-typing-17: typing 5.66s steps(17);
-  --animate-typing-18: typing 6s steps(18);
-  --animate-typing-19: typing 6.33s steps(19);
-  --animate-typing-20: typing 6.66s steps(20);
-  --animate-typing-21: typing 7s steps(21);
-  --animate-typing-22: typing 7.33s steps(22);
-  --animate-typing-23: typing 7.66s steps(23);
-  --animate-typing-24: typing 7s steps(24);
-
-  --animate-blink: blink 0.7s infinite;
-  @keyframes typing {
-    0% {
-      width: 0%;
-      visibility: 'hidden';
-    }
-    100% {
-      width: 100%;
-    }
-  }
-
-  @keyframes blink {
+  --animate-blinking-cursor: blinking-cursor 0.7s step-start infinite;
+  @keyframes blinking-cursor {
     50% {
-      border-color: transparent
+      opacity: 0
     }
     100% {
-      border-color: white
+      opacity: 1
     }
   }
 }
