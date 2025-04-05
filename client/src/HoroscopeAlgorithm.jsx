@@ -1,12 +1,8 @@
-import { useUserData } from "./UserDataContext";
 import {opposingTransitionsArray, agreeingTransitionsArray, unpopularArray, popularArray, similarArray, notSimilarArray, options, happyArray, balancedArray, introspectiveArray} from "./HoroscopeArrays";
 import Sentiment from 'sentiment';
 
-const GenerateHoroscope = () => {
-    const { longTermData, shortTermData } = useUserData();
-
+const GenerateHoroscope = ({longTermData, shortTermData}) => {
     const sentiment = new Sentiment();
-
     const data = initializeVariables(longTermData, shortTermData);
 
     const generatePopularityHoroscope = () => {

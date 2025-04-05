@@ -51,8 +51,7 @@ function Home() {
     <div className="relative flex flex-col h-screen bg-gradient-to-t from-pink-950 from-50% to-indigo-950 overflow-hidden">
       <div className="flex flex-col items-center space-y-30 pt-50 flex-grow z-10">
         <h1
-          className="animate-blink overflow-hidden whitespace-nowrap 
-          border-r-4 border-r-white 
+          className="overflow-hidden whitespace-nowrap 
           font-bold text-5xl text-pink-100 leading-tight h-14"
         >
           {displayedText}

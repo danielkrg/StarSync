@@ -4,19 +4,20 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
 
 function Dashboard() {
     const { longTermData, shortTermData } = useUserData();
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     if (!longTermData || !shortTermData) {
-        return
+        return ( 
+        <div className="relative flex flex-col items-center justify-start h-screen bg-gradient-to-t from-pink-950 to-indigo-950"></div>
+        )
     }
 
     const views = [
         {label: "Top Songs of All Time", data: longTermData.topTracks},
-        {label: "Top Songs Recently", data: shortTermData.topTracks},
+        {label: "Top Songs Lately", data: shortTermData.topTracks},
         {label: "Top Artists of All Time", data: longTermData.topArtists},
-        {label: "Top Artists Recently", data: shortTermData.topArtists},
+        {label: "Top Artists Lately", data: shortTermData.topArtists},
     ];
-
-    const [currentIndex, setCurrentIndex] = useState(0);
 
     const changeView = (direction) => {
         if (direction == "left") {
@@ -33,7 +34,7 @@ function Dashboard() {
                 Hello {shortTermData.displayName}
             </h1>
 
-            <div className="flex w-175 justify-between space-x-4 mt-8 text-2xl text-pink-100">
+            <div className="flex w-175 justify-between space-x-4 mt-8 text-2xl font-semibold text-pink-100">
                 <button
                 onClick={() => changeView("left")}
                 className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out"
@@ -66,7 +67,7 @@ function Dashboard() {
                 {views.map((view, i) => (
                     <div key = {i}
                     className = {`absolute inset-0 transition-opacity duration-500 ${
-                        currentIndex === i ? "opacity-100 z-10" : "opacity-0 z-0"
+                        currentIndex === i ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
                         }`}
                     >
                         {view.data && view.data.length > 0 ? (
@@ -91,7 +92,7 @@ function Dashboard() {
                                             <div className="w-20 h-20 bg-pink-100 opacity-20 rounded-full" />
                                         )}
                                         <div className="ml-10 flex flex-col text-left">
-                                            <h3 className="animate-fadeIn text-lg font-semibold text-pink-100 grow overflow-hidden whitespace-nowrap
+                                            <h3 className="animate-fadeIn text-lg text-pink-100 grow overflow-hidden whitespace-nowrap
                                             group-hover:text-green-500 transition-all ease-in-out duration-300">
                                             {item.name}
                                             </h3>
