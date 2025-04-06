@@ -1,6 +1,7 @@
 import { useUserData } from './UserDataContext';
 import GenerateHoroscope from './HoroscopeAlgorithm';
 import { useState, useEffect } from 'react';
+import Menu from './Menu'
 
 function Horoscope() {
     const { longTermData, shortTermData } = useUserData();
@@ -84,7 +85,8 @@ function Horoscope() {
 
     return (
         <div className="relative flex flex-col space-y-10 items-center justify-start h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
-            <h1 className="text-5xl font-bold text-pink-100 mt-10 mb-20">
+            <Menu />
+            <h1 className="text-5xl font-bold text-pink-100 mt-10 mb-25">
                 Your Musical Horoscope
             </h1>
             <div className="space-y-30 w-full h-250"> 
@@ -102,7 +104,7 @@ function Horoscope() {
                 </p>
             </div>
             <button onClick={handleRegenerate} 
-            className={`border-2 hover:border-green-500 hover:text-green-500
+            className={`cursor-pointer border-2 hover:border-green-500 hover:text-green-500
             font-semibold py-2 px-4 rounded-full mb-30 transition-all duration-300 ease-in-out
             ${(phase !== 'done' && phase !== '') ? "pointer-events-none border-zinc-600 text-zinc-600" : "border-pink-600 text-pink-600"}`}>
                 Regenerate

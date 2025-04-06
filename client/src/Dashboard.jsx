@@ -1,6 +1,7 @@
 import { useUserData } from './UserDataContext';
 import { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import Menu from './Menu'
 
 function Dashboard() {
     const { longTermData, shortTermData } = useUserData();
@@ -30,6 +31,7 @@ function Dashboard() {
 
     return (
         <div className="relative flex flex-col items-center justify-start h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
+            <Menu />
             <h1 className="text-5xl font-bold text-pink-100 mt-10">
                 Hello {shortTermData.displayName}
             </h1>
@@ -37,7 +39,7 @@ function Dashboard() {
             <div className="flex w-175 justify-between space-x-4 mt-8 text-2xl font-semibold text-pink-100">
                 <button
                 onClick={() => changeView("left")}
-                className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out"
+                className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
                 >
                 <ChevronLeftIcon className="h-6 w-6"/>
                 </button>
@@ -46,7 +48,7 @@ function Dashboard() {
 
                 <button
                 onClick={() => changeView("right")}
-                className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out"
+                className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
                 >
                 <ChevronRightIcon className="h-6 w-6"/>
                 </button>
@@ -76,7 +78,7 @@ function Dashboard() {
                                 <button
                                     key={index}
                                     onClick={() => window.open(item.link, '_blank')}
-                                    className="group">
+                                    className="group cursor-pointer">
                                     <div key={index} className="flex items-center pt-5 pb-5">
                                         <div className="w-15 text-4xl font-bold mr-4 text-right text-pink-100 opacity-40">
                                             {index + 1}

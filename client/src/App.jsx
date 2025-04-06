@@ -64,7 +64,7 @@ function Home() {
           onClick={handleLogin}
           className="border-2 border-pink-600 hover:border-green-500 
             font-semibold text-pink-600 hover:text-green-500
-            py-2 px-4 rounded-full 
+            py-2 px-4 rounded-full cursor-pointer
             transition-all duration-300 ease-in-out"
         >
           Login With Spotify

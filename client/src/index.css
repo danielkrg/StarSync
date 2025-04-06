@@ -10,6 +10,7 @@
 
 @theme {
   --animate-fadeIn: fadeIn 2s;
+  --animate-fadeInFast: fadeIn .5s;
   --animate-fadeInTranslucent: fadeInTranslucent 2s;
   @keyframes fadeIn {
     0% {
