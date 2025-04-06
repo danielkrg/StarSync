@@ -15,6 +15,7 @@ function Horoscope() {
     const [phase, setPhase] = useState('first');
 
     const [regenerate, setRegenerate] = useState(false);
+    const [skip, setSkip] = useState(false);
     const dataFetched = longTermData && shortTermData;
 
     const specialChars = [',', '.', ';', '-', '?']
@@ -33,11 +34,20 @@ function Horoscope() {
 
         let timeout;
 
+        if (skip) {
+            setFirstHoroscope(horoscopeArr[0]);
+            setSecondHoroscope(horoscopeArr[1]);
+            setThirdHoroscope(horoscopeArr[2]);
+            setPhase('')
+            setSkip(false)
+            return () => clearTimeout(timeout);
+        }
+
         if (phase == 'first') {
             if (firstHoroscope.length < horoscopeArr[0].length) {
                 timeout = setTimeout(() => {
                     setFirstHoroscope(horoscopeArr[0].slice(0, firstHoroscope.length + 1));
-                }, 25 + addDelay(firstHoroscope[firstHoroscope.length - 1]));
+                }, 15 + addDelay(firstHoroscope[firstHoroscope.length - 1]));
             }
             else {
                 timeout = setTimeout(() => setPhase('second'), 2000);
@@ -47,7 +57,7 @@ function Horoscope() {
             if (secondHoroscope.length < horoscopeArr[1].length) {
                 timeout = setTimeout(() => {
                     setSecondHoroscope(horoscopeArr[1].slice(0, secondHoroscope.length + 1));
-                }, 25 + addDelay(secondHoroscope[secondHoroscope.length - 1]));
+                }, 15 + addDelay(secondHoroscope[secondHoroscope.length - 1]));
             }
             else {
             timeout = setTimeout(() => setPhase('third'), 2000);
@@ -57,7 +67,7 @@ function Horoscope() {
             if (thirdHoroscope.length < horoscopeArr[2].length) {
                 timeout = setTimeout(() => {
                     setThirdHoroscope(horoscopeArr[2].slice(0, thirdHoroscope.length + 1));
-                }, 25 + addDelay(thirdHoroscope[thirdHoroscope.length - 1]));
+                }, 15 + addDelay(thirdHoroscope[thirdHoroscope.length - 1]));
             }
             else {
                 timeout = setTimeout(() => setPhase('done'));
@@ -73,6 +83,10 @@ function Horoscope() {
         localStorage.removeItem('horoscope');
         setRegenerate(true);
     };
+
+    const handleSkip = () => {
+        setSkip(true);
+    }
 
     const addDelay = (char) => {
         if (specialChars.includes(char)) {
@@ -90,24 +104,27 @@ function Horoscope() {
                 Your Musical Horoscope
             </h1>
             <div className="space-y-30 w-full h-250"> 
-                <p className="ml-30 mr-30 text-2xl text-pink-100">
+                <p className="ml-30 mr-30 text-2xl text-pink-100/60">
                     {firstHoroscope}
                     {phase === 'first' && <span className="animate-blinking-cursor">|</span>}
                 </p>
-                <p className="ml-30 mr-30 text-2xl text-pink-100">
+                <p className="ml-30 mr-30 text-2xl text-pink-100/60">
                     {secondHoroscope}
                     {phase === 'second' && <span className="animate-blinking-cursor">|</span>}
                 </p>
-                <p className="ml-30 mr-30 text-2xl text-pink-100">
+                <p className="ml-30 mr-30 text-2xl text-pink-100/60">
                     {thirdHoroscope}
                     {(phase === 'third' || phase == 'done') && <span className="animate-blinking-cursor">|</span>}
                 </p>
             </div>
-            <button onClick={handleRegenerate} 
-            className={`cursor-pointer border-2 hover:border-green-500 hover:text-green-500
-            font-semibold py-2 px-4 rounded-full mb-30 transition-all duration-300 ease-in-out
-            ${(phase !== 'done' && phase !== '') ? "pointer-events-none border-zinc-600 text-zinc-600" : "border-pink-600 text-pink-600"}`}>
-                Regenerate
+            <button onClick={(phase !== 'done' && phase !== '') ? handleSkip : handleRegenerate} 
+            className="cursor-pointer text-pink-500 border-pink-500 border-2 hover:border-green-500 hover:text-green-500
+            font-semibold py-2 px-4 w-35 rounded-full mb-30 transition-all duration-300 ease-in-out">
+                <span
+                key={phase}
+                className="animate-fadeInFast">
+                    {(phase !== 'done' && phase !== '') ? "Skip" : "Regenerate"}
+                </span>
             </button>
         </div>
     );
