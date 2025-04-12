@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from './Dashboard';
 import Horoscope from './Horoscope';
-import { UserDataProvider } from './UserDataContext';
+import AboutMe from "./AboutMe";
+import Security from '../Components/Security'
+import { UserDataProvider } from '../Components/UserDataContext';
 import { useState, useEffect } from 'react';
-import Waves from './assets/layered-waves.svg?react'
+import Waves from '../assets/layered-waves.svg?react'
 
 function Home() {
   const messages = ['Spotify Stats', 'Your Top Tracks', 'Music Horoscope', 'Log in to Begin'];
@@ -52,6 +54,7 @@ function Home() {
 
   return (
     <div className="relative flex flex-col h-screen bg-gradient-to-t from-pink-950 from-50% to-indigo-950 overflow-hidden">
+      <Security />
       <div className="flex flex-col items-center space-y-30 pt-50 flex-grow z-10">
         <h1
           className="font-bold text-5xl text-pink-100 leading-tight h-14"
@@ -65,7 +68,8 @@ function Home() {
           className="border-2 border-pink-600 hover:border-green-500 
             font-semibold text-pink-600 hover:text-green-500
             py-2 px-4 rounded-full cursor-pointer
-            transition-all duration-300 ease-in-out"
+            transition-all duration-300 ease-in-out
+            hover:shadow-[0_0_10px_2px_rgba(29,185,84,0.6)]"
         >
           Login With Spotify
         </button>
@@ -87,6 +91,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/horoscope" element={<Horoscope />} />
+          <Route path="/aboutme" element={<AboutMe />} />
         </Routes>
       </Router>
     </UserDataProvider>

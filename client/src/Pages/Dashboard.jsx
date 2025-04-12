@@ -1,7 +1,7 @@
-import { useUserData } from './UserDataContext';
+import { useUserData } from '../Components/UserDataContext';
 import { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
-import Menu from './Menu'
+import Menu from '../Components/Menu'
 
 function Dashboard() {
     const { longTermData, shortTermData } = useUserData();
@@ -88,7 +88,8 @@ function Dashboard() {
                                             src={item.image}
                                             alt={item.name}
                                             className="border-2 border-transparent group-hover:border-green-500 transition-all ease-in-out duration-300
-                                            animate-fadeIn w-20 h-20 object-cover rounded-full scale-125"
+                                            animate-fadeIn w-20 h-20 object-cover rounded-full scale-125
+                                            group-hover:shadow-[0_0_10px_2px_rgba(29,185,84,0.6)]"
                                             />
                                         ) : (
                                             <div className="w-20 h-20 bg-pink-100 opacity-20 rounded-full" />

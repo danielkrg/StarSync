@@ -1,7 +1,7 @@
-import { useUserData } from './UserDataContext';
-import GenerateHoroscope from './HoroscopeAlgorithm';
+import { useUserData } from '../Components/UserDataContext';
+import GenerateHoroscope from '../Components/HoroscopeAlgorithm';
 import { useState, useEffect } from 'react';
-import Menu from './Menu'
+import Menu from '../Components/Menu'
 
 function Horoscope() {
     const { longTermData, shortTermData } = useUserData();
@@ -119,7 +119,8 @@ function Horoscope() {
             </div>
             <button onClick={(phase !== 'done' && phase !== '') ? handleSkip : handleRegenerate} 
             className="cursor-pointer text-pink-500 border-pink-500 border-2 hover:border-green-500 hover:text-green-500
-            font-semibold py-2 px-4 w-35 rounded-full mb-30 transition-all duration-300 ease-in-out">
+            font-semibold py-2 px-4 w-35 rounded-full mb-30 transition-all duration-300 ease-in-out
+            hover:shadow-[0_0_10px_2px_rgba(29,185,84,0.6)]">
                 <span
                 key={phase}
                 className="animate-fadeInFast">
