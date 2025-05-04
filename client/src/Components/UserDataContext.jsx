@@ -1,4 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import longTermDemo from '../assets/longTermDemo.json'
+import shortTermDemo from '../assets/shortTermDemo.json'
 import axios from "axios";
 
 const UserDataContext = createContext();
@@ -6,6 +8,7 @@ const UserDataContext = createContext();
 export function UserDataProvider({ children }) {
     const [longTermData, setLongTermData] = useState(null);
     const [shortTermData, setShortTermData] = useState(null);
+    const isDemo = localStorage.getItem('demoMode') === 'true'
 
     // Function to fetch long-term data
     const fetchLongTermData = async () => {
@@ -27,10 +30,20 @@ export function UserDataProvider({ children }) {
         }
     };
 
+    const fetchDemoData = async () => {
+        setLongTermData(longTermDemo);
+        setShortTermData(shortTermDemo);
+    }
+
     useEffect(() => {
-        fetchLongTermData();
-        fetchShortTermData();
-    }, []);
+        if (isDemo) {
+            fetchDemoData();
+        }
+        else {
+            fetchLongTermData();
+            fetchShortTermData();
+        }
+    }, [isDemo]);
 
     return (
         <UserDataContext.Provider value={{ longTermData, shortTermData, fetchLongTermData, fetchShortTermData }}>
