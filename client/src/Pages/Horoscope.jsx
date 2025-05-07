@@ -2,13 +2,22 @@ import { useUserData } from '../Components/UserDataContext';
 import GenerateHoroscope from '../Components/HoroscopeAlgorithm';
 import { useState, useEffect } from 'react';
 import Menu from '../Components/Menu'
+import { data } from 'react-router-dom';
 
 function Horoscope() {
     const { longTermData, shortTermData } = useUserData();
+
     const [horoscopeArr, setHoroscopeArr] = useState(() => {
         const saved = localStorage.getItem('horoscope');
-        return saved ? JSON.parse(saved) : [];
+        try {
+            const parsed = saved ? JSON.parse(saved) : [];
+            const isValid = Array.isArray(parsed) && parsed.length === 3 && parsed.every(p => p !== null);
+            return isValid ? parsed : [];
+        } catch {
+            return [];
+        }
     });
+    
     const [firstHoroscope, setFirstHoroscope] = useState('');
     const [secondHoroscope, setSecondHoroscope] = useState('');
     const [thirdHoroscope, setThirdHoroscope] = useState('');
@@ -16,11 +25,11 @@ function Horoscope() {
 
     const [regenerate, setRegenerate] = useState(false);
     const [skip, setSkip] = useState(false);
-    const dataFetched = longTermData && shortTermData;
 
     const specialChars = [',', '.', ';', '-', '?']
 
     useEffect(() => {
+        const dataFetched = (shortTermData !== null) && (longTermData !== null)
         if ((horoscopeArr.length === 0 || regenerate) && dataFetched) {
             const newHoroscope = GenerateHoroscope({ longTermData, shortTermData });
             setHoroscopeArr(newHoroscope);
@@ -43,7 +52,7 @@ function Horoscope() {
             return () => clearTimeout(timeout);
         }
 
-        if (phase == 'first') {
+        if (phase == 'first' && horoscopeArr[0]) {
             if (firstHoroscope.length < horoscopeArr[0].length) {
                 timeout = setTimeout(() => {
                     setFirstHoroscope(horoscopeArr[0].slice(0, firstHoroscope.length + 1));
@@ -77,11 +86,11 @@ function Horoscope() {
             timeout = setTimeout(() => setPhase(''), 4000)
         }
         return () => clearTimeout(timeout);
-    }, [regenerate, dataFetched, firstHoroscope, secondHoroscope, thirdHoroscope, phase]);
+    }, [regenerate, shortTermData, longTermData, horoscopeArr, firstHoroscope, secondHoroscope, thirdHoroscope, phase]);
 
     const handleRegenerate = () => {
         localStorage.removeItem('horoscope');
-        setRegenerate(true);
+        setRegenerate(true);    
     };
 
     const handleSkip = () => {

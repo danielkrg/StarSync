@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Mac from '../assets/Mac.jpg'
+import Grad from '../assets/GradPhoto.jpg'
 
 function AboutMe() {
     const [showProfile, setShowProfile] = useState(false);
@@ -24,7 +24,7 @@ function AboutMe() {
         <div className={`${showProfile ? "blur-none" : "blur-md"} flex flex-col items-center w-full`}>
           <div className="flex w-screen justify-left ml-40 items-center mt-30 space-x-120">
             <img
-                src={Mac}
+                src={Grad}
                 className="w-40 h-40 rounded-full"
             />
             <div className={`transition-all duration-2000`}>

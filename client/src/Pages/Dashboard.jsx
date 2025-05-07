@@ -15,8 +15,8 @@ function Dashboard() {
 
     const views = [
         {label: 'Top Songs of All Time', data: longTermData.topTracks},
-        {label: 'Top Songs Lately', data: shortTermData.topTracks},
         {label: 'Top Artists of All Time', data: longTermData.topArtists},
+        {label: 'Top Songs Lately', data: shortTermData.topTracks},
         {label: 'Top Artists Lately', data: shortTermData.topArtists},
     ];
 

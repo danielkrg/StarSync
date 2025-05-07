@@ -48,6 +48,7 @@ function Home() {
   }, [displayedText, phase, currentIndex]);
 
   const handleLogin = () => {
+    localStorage.setItem('demoMode', 'false');
     window.location.href = "http://localhost:5001/login";
   };
 
