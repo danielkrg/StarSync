@@ -25,7 +25,7 @@ function AboutMe() {
           <div className="flex w-screen justify-left ml-40 items-center mt-30 space-x-120">
             <img
                 src={Grad}
-                className="w-40 h-40 rounded-full"
+                className="w-50 h-50 object-cover rounded-full"
             />
             <div className={`transition-all duration-2000`}>
               <h1 className={`text-5xl font-bold text-pink-100`}>About Me</h1>
@@ -43,18 +43,28 @@ function AboutMe() {
         </div>
 
         {!showProfile && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <form onSubmit={handleSubmit} className="bg-black/15 rounded-2xl text-pink-100 p-20">
-            <h2 className="text-5xl font-bold mb-10">Enter Access Code</h2>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <form onSubmit={handleSubmit} className="bg-black/15 rounded-2xl text-pink-100 p-20">
+          <h2 className="text-5xl font-bold mb-10">Enter Access Code</h2>
+          
+          <div className="relative w-fit">
             <input
               value={code}
-              onChange={(e) => setCode(e.target.value)}
+              onChange={(e) => {
+                setCode(e.target.value)}
+              }
               maxLength={6}
-              className="focus:outline-none text-5xl px-4 py-2 rounded mb-4 w-64 text-left tracking-widest"
-              placeholder="______"
+              className="focus:outline-none text-5xl mb-4 w-64 ml-32 tracking-widest"
             />
-          </form>
-        </div>
+            <div className="absolute text-5xl tracking-widest ml-32 bottom-5 pointer-events-none">
+              {Array.from({length: 6}).map((_, i) => (
+                <span key={i} style={{ opacity: i < code.length ? 0 : 1 }}>_</span>
+              ))}
+            </div>
+          </div>
+        </form>
+      </div>
+      
       )}
 
       </div>

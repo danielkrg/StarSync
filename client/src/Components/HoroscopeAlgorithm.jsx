@@ -33,7 +33,7 @@ const GenerateHoroscope = ({longTermData, shortTermData}) => {
             j = Math.floor(Math.random() * unpopularArray.length);
         }
 
-        if (avgPopularity < 50) {
+        if (avgPopularity < 60) {
             response += unpopularArray[i] + " " + unpopularArray[j]
 
             if (maxPopularity >= avgPopularity * 1.6 || maxPopularity >= minPopularity * 2.5) {
@@ -95,7 +95,7 @@ const GenerateHoroscope = ({longTermData, shortTermData}) => {
         if (!data) {
             return
         }
-        if (!data.playlists) {
+        if (data.playlists.length === 0) {
             return 'Protect your spirit against those who may be wanting to harm.'
         }
         
