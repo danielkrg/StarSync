@@ -41,7 +41,7 @@ function Dashboard() {
                 onClick={() => changeView("left")}
                 className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
                 >
-                <ChevronLeftIcon className="h-6 w-6"/>
+                    <ChevronLeftIcon className="h-6 w-6"/>
                 </button>
 
                 {views[currentIndex].label}
@@ -50,7 +50,7 @@ function Dashboard() {
                 onClick={() => changeView("right")}
                 className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
                 >
-                <ChevronRightIcon className="h-6 w-6"/>
+                    <ChevronRightIcon className="h-6 w-6"/>
                 </button>
             </div>
 

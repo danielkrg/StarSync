@@ -2,7 +2,6 @@ import { useUserData } from '../Components/UserDataContext';
 import GenerateHoroscope from '../Components/HoroscopeAlgorithm';
 import { useState, useEffect } from 'react';
 import Menu from '../Components/Menu'
-import { data } from 'react-router-dom';
 
 function Horoscope() {
     const { longTermData, shortTermData } = useUserData();
@@ -25,8 +24,25 @@ function Horoscope() {
 
     const [regenerate, setRegenerate] = useState(false);
     const [skip, setSkip] = useState(false);
-
     const specialChars = [',', '.', ';', '-', '?']
+
+    const handleRegenerate = () => {
+        localStorage.removeItem('horoscope');
+        setRegenerate(true);    
+    };
+
+    const handleSkip = () => {
+        setSkip(true);
+    }
+
+    const addDelay = (char) => {
+        if (specialChars.includes(char)) {
+            return 100
+        }
+        else {
+            return 0
+        }
+    }
 
     useEffect(() => {
         const dataFetched = (shortTermData !== null) && (longTermData !== null)
@@ -59,7 +75,7 @@ function Horoscope() {
                 }, 15 + addDelay(firstHoroscope[firstHoroscope.length - 1]));
             }
             else {
-                timeout = setTimeout(() => setPhase('second'), 2000);
+                timeout = setTimeout(() => setPhase('second'), 15);
             }
         }
         else if (phase == 'second') {
@@ -69,7 +85,7 @@ function Horoscope() {
                 }, 15 + addDelay(secondHoroscope[secondHoroscope.length - 1]));
             }
             else {
-            timeout = setTimeout(() => setPhase('third'), 2000);
+                timeout = setTimeout(() => setPhase('third'), 15);
             }
         }
         else if (phase == 'third') {
@@ -87,24 +103,6 @@ function Horoscope() {
         }
         return () => clearTimeout(timeout);
     }, [regenerate, shortTermData, longTermData, horoscopeArr, firstHoroscope, secondHoroscope, thirdHoroscope, phase]);
-
-    const handleRegenerate = () => {
-        localStorage.removeItem('horoscope');
-        setRegenerate(true);    
-    };
-
-    const handleSkip = () => {
-        setSkip(true);
-    }
-
-    const addDelay = (char) => {
-        if (specialChars.includes(char)) {
-            return 100
-        }
-        else {
-            return 0
-        }
-    }
 
     return (
         <div className="relative flex flex-col space-y-10 items-center justify-start h-screen bg-gradient-to-t from-pink-950 to-indigo-950">

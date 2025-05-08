@@ -10,11 +10,23 @@
 
 @theme {
   --animate-fadeIn: fadeIn 2s;
+  --animate-fadeInMed: fadeIn 1s;
   --animate-fadeInFast: fadeIn .5s;
   --animate-fadeInTranslucent: fadeInTranslucent 2s;
+  --animate-fadeInOp60: fadeInOp60 2s;
+  
   @keyframes fadeIn {
     0% {
       opacity: 0
+    }
+    100% {
+      opacity: 1
+    }
+  }
+
+  @keyframes fadeInImage {
+    0% {
+      opacity: 0.2
     }
     100% {
       opacity: 1
@@ -27,6 +39,15 @@
     }
     100% {
       opacity: .4
+    }
+  }
+
+  @keyframes fadeInOp60 {
+    0% {
+      opacity: 0
+    }
+    100% {
+      opacity: .6
     }
   }
 

@@ -1,0 +1,38 @@
+{
+    "displayName":"Recruiter",
+    "topTracks":[
+       {"name":"4 Minute Warning","artists":["Radiohead"],"popularity":51,"image":"https://i.scdn.co/image/ab67616d0000b2734b88d5c1b3358cca2c94ec0b","link":"https://open.spotify.com/track/3HPLfZhQUds6N6tZ4WiApn"},
+       {"name":"Karma Police","artists":["Radiohead"],"popularity":84,"image":"https://i.scdn.co/image/ab67616d0000b273c8b444df094279e70d0ed856","link":"https://open.spotify.com/track/63OQupATfueTdZMWTxW03A"},
+       {"name":"Alright","artists":["Kendrick Lamar"],"popularity":84,"image":"https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1","link":"https://open.spotify.com/track/3iVcZ5G6tvkXZkZKlMpIUs"},
+       {"name":"Moon Song","artists":["Phoebe Bridgers"],"popularity":30,"image":"https://i.scdn.co/image/ab67616d0000b273a91b75c9ef65ed8d760ff600","link":"https://open.spotify.com/track/46RNrAkGsqWTDrv2ZPOAbx"},
+       {"name":"505","artists":["Arctic Monkeys"],"popularity":85,"image":"https://i.scdn.co/image/ab67616d0000b2730c8ac83035e9588e8ad34b90","link":"https://open.spotify.com/track/58ge6dfP91o9oXMzq3XkIS"},
+       {"name":"Circles","artists":["Post Malone"],"popularity":88,"image":"https://i.scdn.co/image/ab67616d0000b2739478c87599550dd73bfa7e02","link":"https://open.spotify.com/track/21jGcNKet2qwijlDFuPiPb"},
+       {"name":"White Ferrari","artists":["Frank Ocean"],"popularity":88,"image":"https://i.scdn.co/image/ab67616d0000b273c5649add07ed3720be9d5526","link":"https://open.spotify.com/track/2LMkwUfqC6S6s6qDVlEuzV"},
+       {"name":"La lune","artists":["L'Impératrice"],"popularity":61,"image":"https://i.scdn.co/image/ab67616d0000b27391d5af63d5acc752950d5927","link":"https://open.spotify.com/track/6rbbDK18oqK3MxHGQhpmn2"},
+       {"name":"Let It Happen","artists":["Tame Impala"],"popularity":83,"image":"https://i.scdn.co/image/ab67616d0000b2739e1cfc756886ac782e363d79","link":"https://open.spotify.com/track/2X485T9Z5Ly0xyaghN73ed"},
+       {"name":"The Scientist","artists":["Coldplay"],"popularity":90,"image":"https://i.scdn.co/image/ab67616d0000b273de09e02aa7febf30b7c02d82","link":"https://open.spotify.com/track/75JFxkI2RXiU7L9VXzMkle"}],
+    "topArtists":[
+       {"name":"Radiohead","popularity":40.23,"image":"https://i.scdn.co/image/ab6761610000e5eba03696716c9ee605006047fd","genres":["art rock", "alternative rock"],"link":"https://open.spotify.com/artist/4Z8W4fKeB5YxbusRsdQVPb"},
+       {"name":"Kendrick Lamar","popularity":136.43,"image":"https://i.scdn.co/image/ab6761610000e5eb39ba6dcd4355c03de0b50918","genres":["hip hop", "west coast hip hop"],"link":"https://open.spotify.com/artist/2YZyLoL8N0Wb9xBt1NhZWg"},
+       {"name":"Phoebe Bridgers","popularity":9.41,"image":"https://i.scdn.co/image/ab6761610000e5eb626686e362d30246e816cc5b","genres":[],"link":"https://open.spotify.com/artist/1r1uxoy19fzMxunt3ONAkG"},
+       {"name":"Arctic Monkeys","popularity":100.24,"image":"https://i.scdn.co/image/ab6761610000e5eb7da39dea0a72f581535fb11f","genres":["indie", "garage rock"],"link":"https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH"},
+       {"name":"Post Malone","popularity":156.45,"image":"https://i.scdn.co/image/ab6761610000e5ebe17c0aa1714a03d62b5ce4e0","genres":[],"link":"https://open.spotify.com/artist/246dkjvS1zLTtiykXe5h60"},
+       {"name":"Frank Ocean","popularity":62.38,"image":"https://i.scdn.co/image/ab6761610000e5ebee3123e593174208f9754fab","genres":[],"link":"https://open.spotify.com/artist/2h93pZq0e7k5yf4dywlkpM"},
+       {"name":"L'Impératrice","popularity":2.31,"image":"https://i.scdn.co/image/ab6761610000e5ebc676dbddd1febecdb7ccf160","genres":["french indie pop", "french house"],"link":"https://open.spotify.com/artist/4PwlsrN0t5mLN0C827cbEU"},
+       {"name":"Tame Impala","popularity":29.44,"image":"https://i.scdn.co/image/ab6761610000e5eb90357ef28b3a012a1d1b2fa2","genres":["indie", "psychedelic pop"],"link":"https://open.spotify.com/artist/5INjqkS1o8h1imAzPqGZBb"},
+       {"name":"Coldplay","popularity":194.05,"image":"https://i.scdn.co/image/ab6761610000e5eb1ba8fc5f5c73e7e9313cc6eb","genres":[],"link":"https://open.spotify.com/artist/4gzpq5DPGxSnKTe4SA8HAU"},
+       {"name":"Pink Floyd","popularity":73.21,"image":"https://i.scdn.co/image/e69f71e2be4b67b82af90fb8e9d805715e0684fa","genres":["progressive rock", "symphonic rock"],"link":"https://open.spotify.com/artist/0k17h0D3J5VfsdmQ1iZtE9"}],
+    "playlists":[
+       {"name":"Sun Kissed"},
+       {"name":"Big leagues "},
+       {"name":"Tofinoooo"},
+       {"name":"$uicide but it’s Chill"},
+       {"name":"I Can’t Decide on a Vibe but I Just Like These Songs"},
+       {"name":"CD Playlist"},
+       {"name":"Dancer Coded "},
+       {"name":"Just Some Nice (Singable) Songs"},
+       {"name":"Bangers"},
+       {"name":"Late night vibes"},
+       {"name":"Good vibes"}]
+    }
+    

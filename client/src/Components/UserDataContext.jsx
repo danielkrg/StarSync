@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import longTermDemo from '../assets/longTermDemo.json'
-import shortTermDemo from '../assets/shortTermDemo.json'
+import longTermDemo from '../assets/DemoData/longTermDemo.json'
+import shortTermDemo from '../assets/DemoData/shortTermDemo.json'
 import axios from "axios";
 
 const UserDataContext = createContext();

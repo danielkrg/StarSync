@@ -1,13 +1,32 @@
 import { useState } from "react";
-import Grad from '../assets/GradPhoto.jpg'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import Backpack from '../assets/Images/Backpack.jpg'
+import Board from '../assets/Images/Board.jpg'
+import Grad from '../assets/Images/Grad.jpg'
+import Kelp from '../assets/Images/Kelp.jpg'
+import Tent from '../assets/Images/Tent.jpg'
+import View from '../assets/Images/View.jpg'
+import Waves from '../assets/layered-waves.svg?react'
 
 function AboutMe() {
     const [showProfile, setShowProfile] = useState(false);
-    const [code, setCode] = useState("")
+    const [code, setCode] = useState("");
+    const [currentIndex, setCurrentIndex] = useState(0) ;
+
+    const images = [Grad, Kelp, Board, Backpack, Tent];
+    const captions = [
+      'UBC Class of 2025: Mathematics',
+      'My latest obsession...',
+      'Though I enjoy most outdoor things',
+      'Even those that hurt my back',
+      'Anything for a view like this...',
+    ]
+    
 
     const handleSubmit = (e) => {
       e.preventDefault();
       if (code === "111111") {
+        localStorage.setItem('demoMode', 'true');
         setShowProfile(true);
       } else {
         alert("Invalid code");
@@ -15,33 +34,75 @@ function AboutMe() {
     };
 
     const handleDemo = () => {
-      localStorage.setItem('demoMode', 'true');
       window.location.href = "http://localhost:3000/dashboard"
+    }
+
+    const changeImage = (direction) => {
+      if (direction === 'left') {
+        setCurrentIndex((curr) => (curr - 1 + images.length) % images.length);
+      }
+      else {
+        setCurrentIndex((curr) => (curr + 1) % images.length);
+      }
+      console.log(currentIndex)
     }
 
     return (
       <div className={`relative flex h-screen bg-gradient-to-t from-pink-950 from-50% to-indigo-950 overflow-hidden`}>
         <div className={`${showProfile ? "blur-none" : "blur-md"} flex flex-col items-center w-full`}>
-          <div className="flex w-screen justify-left ml-40 items-center mt-30 space-x-120">
-            <img
-                src={Grad}
-                className="w-50 h-50 object-cover rounded-full"
-            />
-            <div className={`transition-all duration-2000`}>
-              <h1 className={`text-5xl font-bold text-pink-100`}>About Me</h1>
+          <div className="flex w-screen justify-between items-top p-30 pb-0 space-x-20">
+            <div className="flex flex-col">
+              <h1 className={`text-9xl font-bold text-pink-100`}>ABOUT:</h1>
+              <p className="text-xl font-bold text-pink-100/60 mt-20">
+                {"I like to code and stuff I promise I learn very fast and work very hard just give me a chance to prove it"}
+              </p>
+              <p className="text-xl font-bold text-pink-100/60 mt-20">
+                {"second"}
+              </p>
+              <div className="flex w-full justify-center mt-20">
+                <button onClick={handleDemo}
+                className="cursor-pointer text-pink-500 border-pink-500 border-2 hover:border-green-500 hover:text-green-500
+                font-semibold py-2 px-4 w-35 rounded-full mb-30 transition-all duration-300 ease-in-out
+                hover:shadow-[0_0_10px_2px_rgba(29,185,84,0.6)]">
+                  View Demo
+                </button>
+              </div>
             </div>
+              <div className="flex flex-col">
+                <div className="relative h-[500px] w-[400px]">
+                  <div className="w-full h-full bg-black/20 rounded-3xl" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <img
+                      key={currentIndex}
+                      src={images[currentIndex]}
+                      className=" w-[360px] h-[460px] object-cover rounded-2xl animate-fadeInMed ease-in-out"
+                    />
+                  </div>
+                </div>
+                <div className="flex w-full h-10 pl-10 pr-10 pt-10 items-center justify-between">
+                  <button
+                  onClick={() => changeImage("left")}
+                  className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
+                  >
+                    <ChevronLeftIcon className="h-6 w-6"/>
+                  </button>
+                  <div className="flex align-center">
+                    <p className="italic text-pink-100/60 ">
+                      {captions[currentIndex]}
+                    </p>
+                  </div>
+                  <button
+                  onClick={() => changeImage("right")}
+                  className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
+                  >
+                    <ChevronRightIcon className="h-6 w-6"/>
+                  </button>
+                </div>
+              </div>
           </div>
-          <p className="text-3xl font-bold text-pink-100 p-30">
-            {"I like to code and stuff I promise I learn very fast and work very hard just give me a chance to prove it"}
-          </p>
-          <button onClick={handleDemo}
-            className="cursor-pointer text-pink-500 border-pink-500 border-2 hover:border-green-500 hover:text-green-500
-            font-semibold py-2 px-4 w-35 rounded-full mb-30 transition-all duration-300 ease-in-out
-            hover:shadow-[0_0_10px_2px_rgba(29,185,84,0.6)]">
-              View Demo
-            </button>
         </div>
 
+        {/* Security */}
         {!showProfile && (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
         <form onSubmit={handleSubmit} className="bg-black/15 rounded-2xl text-pink-100 p-20">
@@ -65,8 +126,12 @@ function AboutMe() {
         </form>
       </div>
       
-      )}
+        )}
 
+        {/* Waves */}
+        <div className="absolute top-0 bottom-0 left-0 w-full pointer-events-none z-0">
+          <Waves className="w-full h-auto scale-x-[-1]" />
+        </div>
       </div>
     );
   }
