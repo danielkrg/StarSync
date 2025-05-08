@@ -53,16 +53,22 @@ function AboutMe() {
           <div className="flex w-screen justify-between items-top p-30 pb-0 space-x-20">
             <div className="flex flex-col">
               <h1 className={`text-9xl font-bold text-pink-100`}>ABOUT:</h1>
-              <p className="text-xl font-bold text-pink-100/60 mt-20">
-                {"I like to code and stuff I promise I learn very fast and work very hard just give me a chance to prove it"}
+              <p className="text-xl font-bold text-pink-100/60 mt-10">
+                {"I’m Daniel, a soon to be developer with a background in Mathematics."}
               </p>
-              <p className="text-xl font-bold text-pink-100/60 mt-20">
-                {"second paragraph"}
+              <p className="text-xl font-bold text-pink-100/60 mt-10">
+                {"I see programming as a way to express my creative side - an opportunity to build applications that not only offer elegant solutions, but also feel intuitive and satisfying to use. "}
+                {"I believe in clean, intentional design that reflects my detail-oriented and analytic mindset. "}
+                {"I challenge the status quo by going beyond expectations, diligently polishing my work and adding minor details that elevate it from "} <span className="italic">good</span> {' to '} <span className="italic">great</span>.
               </p>
-              <p className="text-xl font-bold text-pink-100/60 mt-20">
-                {"third paragraph"}
+              <p className="text-xl font-bold text-pink-100/60 mt-10">
+                {"I’m always seeking new adventures and enjoy expanding my collection of hobbies. "}
+                {"My curiosity and desire to learn pushes me to conquer challenges and absorb as much information as possible along the way. "}
               </p>
-              <div className="flex w-full justify-center mt-20">
+              <p className="text-xl font-bold text-pink-100/60 mt-10">
+                {"I look forward to joining a team where I can contribute meaningfully, continue evolving, and - most importantly - exceed expectations."}
+              </p>
+              <div className="flex w-full justify-center mt-10">
                 <button onClick={handleDemo}
                 className="cursor-pointer text-pink-500 border-pink-500 border-2 hover:border-green-500 hover:text-green-500
                 font-semibold py-2 px-4 w-35 rounded-full mb-30 transition-all duration-300 ease-in-out
