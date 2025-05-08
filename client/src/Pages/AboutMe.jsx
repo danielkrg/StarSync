@@ -57,7 +57,10 @@ function AboutMe() {
                 {"I like to code and stuff I promise I learn very fast and work very hard just give me a chance to prove it"}
               </p>
               <p className="text-xl font-bold text-pink-100/60 mt-20">
-                {"second"}
+                {"second paragraph"}
+              </p>
+              <p className="text-xl font-bold text-pink-100/60 mt-20">
+                {"third paragraph"}
               </p>
               <div className="flex w-full justify-center mt-20">
                 <button onClick={handleDemo}
@@ -75,7 +78,8 @@ function AboutMe() {
                     <img
                       key={currentIndex}
                       src={images[currentIndex]}
-                      className=" w-[360px] h-[460px] object-cover rounded-2xl animate-fadeInMed ease-in-out"
+                      className={`${showProfile ? "opacity-100 animate-fadeInMed ease-in-out" : "opacity-0"} 
+                      w-[360px] h-[460px] object-cover rounded-2xl`}
                     />
                   </div>
                 </div>
@@ -87,7 +91,8 @@ function AboutMe() {
                     <ChevronLeftIcon className="h-6 w-6"/>
                   </button>
                   <div className="flex align-center">
-                    <p className="italic text-pink-100/60 ">
+                    <p key={currentIndex}
+                      className="italic text-pink-100/60 animate-fadeInFast ease-in-out">
                       {captions[currentIndex]}
                     </p>
                   </div>
@@ -99,6 +104,9 @@ function AboutMe() {
                   </button>
                 </div>
               </div>
+          </div>
+          <div className="absolute top-0 bottom-0 left-0 w-full pointer-events-none z-0">
+            <Waves className="w-full h-auto scale-x-[-1]"/>
           </div>
         </div>
 
@@ -127,11 +135,6 @@ function AboutMe() {
       </div>
       
         )}
-
-        {/* Waves */}
-        <div className="absolute top-0 bottom-0 left-0 w-full pointer-events-none z-0">
-          <Waves className="w-full h-auto scale-x-[-1]" />
-        </div>
       </div>
     );
   }
