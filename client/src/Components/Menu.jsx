@@ -4,6 +4,12 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 function Menu() {
   const [isOpen, setIsOpen] = useState(false);
+  const handleLogin = () => {
+    setIsOpen(false)
+    localStorage.setItem('demoMode', 'false');
+    window.location.href = "http://localhost:5001/login";
+  };
+  const isDemo = localStorage.getItem('demoMode') === 'true'
 
   return (
     <div className="absolute top-10 left-10 z-50">
@@ -31,6 +37,11 @@ function Menu() {
           >
             Horoscope
           </Link>
+          <button
+            onClick={() => handleLogin()}
+            className={`${isDemo ? "cursor-pointer" : "opacity-0 pointer-events-none"} hover:text-green-500 transition-all ease-in-out duration-300`}>
+            Try With Your Own Account
+          </button>
         </div>
       )}
     </div>

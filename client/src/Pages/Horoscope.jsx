@@ -110,7 +110,7 @@ function Horoscope() {
             <h1 className="text-5xl font-bold text-pink-100 mt-10 mb-25">
                 Your Musical Horoscope
             </h1>
-            <div className="space-y-30 w-full h-250"> 
+            <div className="mt-10 space-y-30 w-full h-250"> 
                 <p className="ml-30 mr-30 text-2xl text-pink-100/60">
                     {firstHoroscope}
                     {phase === 'first' && <span className="animate-blinking-cursor">|</span>}
@@ -125,7 +125,7 @@ function Horoscope() {
                 </p>
             </div>
             <button onClick={(phase !== 'done' && phase !== '') ? handleSkip : handleRegenerate} 
-            className="cursor-pointer text-pink-500 border-pink-500 border-2 hover:border-green-500 hover:text-green-500
+            className="absolute mt-185 cursor-pointer text-pink-500 border-pink-500 border-2 hover:border-green-500 hover:text-green-500
             font-semibold py-2 px-4 w-35 rounded-full mb-30 transition-all duration-300 ease-in-out
             hover:shadow-[0_0_10px_2px_rgba(29,185,84,0.6)]">
                 <span
