@@ -6,6 +6,7 @@ import Menu from '../Components/Menu'
 function Dashboard() {
     const { longTermData, shortTermData } = useUserData();
     const [currentIndex, setCurrentIndex] = useState(0);
+    const isDemo = localStorage.getItem('demoMode') === 'true'
 
     if (!longTermData || !shortTermData) {
         return ( 
@@ -31,12 +32,22 @@ function Dashboard() {
 
     return (
         <div className="relative flex flex-col items-center justify-start h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
-            <Menu />
-            <h1 className="text-5xl font-bold text-pink-100 mt-10">
-                Hello {shortTermData.displayName}
-            </h1>
+            <div className="flex w-full justify-between items-start">
+                <Menu />
+                <h1 className="text-7xl font-bold text-pink-100 mt-5">
+                    HELLO {shortTermData.displayName.toUpperCase() }
+                </h1>
+                <button
+                    onClick={() => window.location.href = "http://localhost:3000/aboutme"}
+                    className={`${isDemo ? "opacity-0 pointer-events-none" : ""} font-semibold text-pink-500 hover:text-green-500
+                    mr-5 mt-5 rounded-full cursor-pointer
+                    transition-all duration-300 ease-in-out`}
+                >
+                    Recruiters Click Here
+                </button>
+            </div>
 
-            <div className="flex w-175 justify-between space-x-4 mt-8 text-2xl font-semibold text-pink-100">
+            <div className="absolute mt-30 flex w-175 justify-between space-x-4 text-2xl font-semibold text-pink-100">
                 <button
                 onClick={() => changeView("left")}
                 className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
@@ -54,7 +65,7 @@ function Dashboard() {
                 </button>
             </div>
 
-            <div className="flex space-x-2 mt-5">
+            <div className="absolute flex space-x-2 mt-45">
                 <div className={`rounded-full w-3 h-3 border-1 border-pink-100/40 transition-all duration-300 ease-in-out
                                 ${currentIndex === 0 ? "bg-pink-100/80" : "bg-transparent"}`}></div> 
                <div className={`rounded-full w-3 h-3 border-1 border-pink-100/40 transition-all duration-300 ease-in-out
@@ -65,7 +76,7 @@ function Dashboard() {
                                 ${currentIndex === 3 ? "bg-pink-100/80" : "bg-transparent"}`}></div> 
             </div>
 
-            <div className="relative w-full">
+            <div className="absolute mt-40 w-full">
                 {views.map((view, i) => (
                     <div key = {i}
                     className = {`absolute inset-0 transition-opacity duration-500 ${

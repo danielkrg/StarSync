@@ -2,9 +2,11 @@ import { useUserData } from '../Components/UserDataContext';
 import GenerateHoroscope from '../Components/HoroscopeAlgorithm';
 import { useState, useEffect } from 'react';
 import Menu from '../Components/Menu'
+import Waves from '../assets/layered-waves.svg?react'
 
 function Horoscope() {
     const { longTermData, shortTermData } = useUserData();
+    const isDemo = localStorage.getItem('demoMode') === 'true'
 
     const [horoscopeArr, setHoroscopeArr] = useState(() => {
         const saved = localStorage.getItem('horoscope');
@@ -105,12 +107,22 @@ function Horoscope() {
     }, [regenerate, shortTermData, longTermData, horoscopeArr, firstHoroscope, secondHoroscope, thirdHoroscope, phase]);
 
     return (
-        <div className="relative flex flex-col space-y-10 items-center justify-start h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
-            <Menu />
-            <h1 className="text-5xl font-bold text-pink-100 mt-10 mb-25">
-                Your Musical Horoscope
-            </h1>
-            <div className="mt-10 space-y-30 w-full h-250"> 
+        <div className="relative flex flex-col space-y-10 items-center h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
+            <div className="flex w-full justify-between items-start">
+                <Menu />
+                <h1 className="mt-5 text-9xl font-bold text-pink-100">
+                    YOUR READING:
+                </h1>
+                <button
+                    onClick={() => window.location.href = "http://localhost:3000/aboutme"}
+                    className={`${isDemo ? "opacity-0 pointer-events-none" : ""} font-semibold text-pink-500 hover:text-green-500
+                    mr-5 mt-5 rounded-full cursor-pointer
+                    transition-all duration-300 ease-in-out`}
+                >
+                    Recruiters Click Here
+                </button>
+            </div>
+            <div className="absolute mt-50 space-y-30 w-full h-250"> 
                 <p className="ml-30 mr-30 text-2xl text-pink-100/60">
                     {firstHoroscope}
                     {phase === 'first' && <span className="animate-blinking-cursor">|</span>}
@@ -134,6 +146,10 @@ function Horoscope() {
                     {(phase !== 'done' && phase !== '') ? "Skip" : "Regenerate"}
                 </span>
             </button>
+            {/* Waves */}
+            <div className="absolute top-0 bottom-0 left-0 w-full pointer-events-none z-0">
+                <Waves className="w-full h-auto scale-x-[-1]"/>
+            </div>
         </div>
     );
 }

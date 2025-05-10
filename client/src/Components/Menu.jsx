@@ -12,7 +12,7 @@ function Menu() {
   const isDemo = localStorage.getItem('demoMode') === 'true'
 
   return (
-    <div className="absolute top-10 left-10 z-50">
+    <div className="flex flex-col w-70 ml-5 mt-5">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="text-pink-100 font-bold px-4 py-2 transition-all ease-in-out duration-300 cursor-pointer"
@@ -39,7 +39,7 @@ function Menu() {
           </Link>
           <button
             onClick={() => handleLogin()}
-            className={`${isDemo ? "cursor-pointer" : "opacity-0 pointer-events-none"} hover:text-green-500 transition-all ease-in-out duration-300`}>
+            className={`${isDemo ? "cursor-pointer" : "opacity-0 pointer-events-none"} hover:text-green-500 transition-all ease-in-out duration-300 text-left`}>
             Try With Your Own Account
           </button>
         </div>
