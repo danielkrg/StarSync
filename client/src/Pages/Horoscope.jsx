@@ -110,12 +110,12 @@ function Horoscope() {
         <div className="relative flex flex-col space-y-10 items-center h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
             <div className="flex w-full justify-between items-start">
                 <Menu />
-                <h1 className="mt-5 text-9xl font-bold text-pink-100">
+                <h1 className="mt-5 text-7xl font-bold text-pink-100">
                     YOUR READING:
                 </h1>
                 <button
                     onClick={() => window.location.href = "http://localhost:3000/aboutme"}
-                    className={`${isDemo ? "opacity-0 pointer-events-none" : ""} font-semibold text-pink-500 hover:text-green-500
+                    className={`opacity-0 pointer-events-none font-semibold text-pink-500 hover:text-green-500
                     mr-5 mt-5 rounded-full cursor-pointer
                     transition-all duration-300 ease-in-out`}
                 >
