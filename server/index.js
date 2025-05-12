@@ -1,8 +1,15 @@
 require('dotenv').config();
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const session = require('express-session');
+
+import { dirname } from 'path';
+const _filename = fileURLToPath(import.meta.url);
+const _dirname = dirname(_filename);
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -14,6 +21,11 @@ app.use(cors({
     credentials: true,
 }));
 
+app.use(express.static(path.join(_dirname, '../client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(_dirname, '/client/dist', 'index.html'));
+});
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -118,6 +130,19 @@ app.get('/logout', (req, res) => {
     req.session.destroy(() => {
         res.send('Logged out');
     });
+});
+
+// ---- SERVE FRONTEND IN PRODUCTION ----
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Handle client-side routing (e.g., React Router)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
