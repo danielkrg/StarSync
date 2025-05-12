@@ -7,7 +7,6 @@ const axios = require('axios');
 const cors = require('cors');
 const session = require('express-session');
 
-import { dirname } from 'path';
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
 
