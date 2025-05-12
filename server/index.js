@@ -1,11 +1,12 @@
-require('dotenv').config();
+import dotenv from 'dotenv'
+dotenv.config();
+
+import express from 'express';
+import axios from 'axios';
+import cors from 'cors';
+import session from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
-const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
-const session = require('express-session');
 
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
