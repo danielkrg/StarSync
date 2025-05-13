@@ -99,7 +99,7 @@ function App() {
     <UserDataProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/horoscope" element={<Horoscope />} />
           <Route path="/aboutme" element={<AboutMe />} />

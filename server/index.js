@@ -31,7 +31,7 @@ const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI;
 
 app.get('/', (req, res) => {
-    res.redirect(FRONTEND_URL);
+    res.redirect(`${FRONTEND_URL}/home`);
 });
 
 app.get('/login', (req, res) => {
