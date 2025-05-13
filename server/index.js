@@ -8,24 +8,16 @@ import session from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const _filename = fileURLToPath(import.meta.url);
-const _dirname = dirname(_filename);
-
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT;
+const FRONTEND_URL = process.env.FRONTEND_URL
 
 app.use(cors());
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: FRONTEND_URL,
     credentials: true,
 }));
-
-app.use(express.static(path.join(_dirname, '../client/dist')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(_dirname, '/client/dist', 'index.html'));
-});
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -61,7 +53,7 @@ app.get('/callback', async (req, res) => {
         }), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 
         req.session.accessToken = response.data.access_token; // Store token in session
-        res.redirect('http://localhost:3000/dashboard'); // Redirect to front end
+        res.redirect(`${FRONTEND_URL}/dashboard`); // Redirect to front end
     } catch (error) {
         console.error('Error getting token:', error.response?.data || error.message);
         res.status(500).send('Authentication failed');
@@ -142,9 +134,9 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Handle client-side routing (e.g., React Router)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running`);
 });

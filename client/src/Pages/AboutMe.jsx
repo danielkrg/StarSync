@@ -33,7 +33,7 @@ function AboutMe() {
     };
 
     const handleDemo = () => {
-      window.location.href = "http://localhost:3000/dashboard"
+      window.location.href = "/dashboard"
     }
 
     const changeImage = (direction) => {

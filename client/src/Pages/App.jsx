@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import Waves from '../assets/layered-waves.svg?react'
 
 function Home() {
+  const api = import.meta.env.VITE_API_BASE_URL;
   const messages = ['Spotify Stats', 'Your Top Tracks', 'Music Horoscope', 'Log in to Begin'];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
@@ -49,14 +50,14 @@ function Home() {
 
   const handleLogin = () => {
     localStorage.setItem('demoMode', 'false');
-    window.location.href = "http://localhost:5001/login";
+    window.location.href = `${api}/login`;
   };
 
   return (
     <div className="relative flex flex-col h-screen bg-gradient-to-t from-pink-950 from-50% to-indigo-950 overflow-hidden">
       <div className="absolute top-4 right-4 text-right z-50">
         <button
-          onClick={() => window.location.href = "http://localhost:3000/aboutme"}
+          onClick={() => window.location.href = "/aboutme"}
           className={`font-semibold text-pink-500 hover:text-green-500
           py-2 px-4 rounded-full cursor-pointer
           transition-all duration-300 ease-in-out`}

@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 function Menu() {
+  const api = import.meta.env.VITE_API_BASE_URL;
   const [isOpen, setIsOpen] = useState(false);
   const handleLogin = () => {
     setIsOpen(false)
     localStorage.setItem('demoMode', 'false');
-    window.location.href = "http://localhost:5001/login";
+    window.location.href = `${api}/login`;
   };
   const isDemo = localStorage.getItem('demoMode') === 'true'
 

@@ -114,7 +114,7 @@ function Horoscope() {
                     YOUR READING:
                 </h1>
                 <button
-                    onClick={() => window.location.href = "http://localhost:3000/aboutme"}
+                    onClick={() => window.location.href = "/aboutme"}
                     className={`opacity-0 pointer-events-none font-semibold text-pink-500 hover:text-green-500
                     mr-5 mt-5 rounded-full cursor-pointer
                     transition-all duration-300 ease-in-out`}
