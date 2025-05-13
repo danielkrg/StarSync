@@ -31,7 +31,7 @@ const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI;
 
 app.get('/', (req, res) => {
-    res.send('Spotify Horoscope Backend is running!');
+    res.redirect(FRONTEND_URL);
 });
 
 app.get('/login', (req, res) => {
