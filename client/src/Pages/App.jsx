@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from './Dashboard';
-import Horoscope from './Horoscope';
+import Horoscope from './Horoscope';  
 import AboutMe from "./AboutMe";
+import Error from "./Error";
 import { UserDataProvider } from '../Components/UserDataContext';
 import { useState, useEffect } from 'react';
 import Waves from '../assets/layered-waves.svg?react'
@@ -11,7 +12,7 @@ function Home() {
   const messages = ['Spotify Stats', 'Your Top Tracks', 'Music Horoscope', 'Log in to Begin'];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
-  const [phase, setPhase] = useState('typing'); // 'typing', 'pausing', 'deleting'
+  const [phase, setPhase] = useState('typing');
 
   useEffect(() => {
     const currentMessage = messages[currentIndex];
@@ -103,6 +104,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/horoscope" element={<Horoscope />} />
           <Route path="/aboutme" element={<AboutMe />} />
+          <Route path="/error" element={<Error />} />
         </Routes>
       </Router>
     </UserDataProvider>

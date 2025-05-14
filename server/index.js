@@ -41,8 +41,17 @@ app.get('/login', (req, res) => {
     );
 });
 
+app.get('/checkAuth', (req, res) => {
+    if (req.session.accessToken) {
+        res.json({ authenticated: true });
+    } else {
+        res.json({ authenticated: false });
+    }
+});
+
 app.get('/callback', async (req, res) => {
     const code = req.query.code;
+    
     try {
         const response = await axios.post('https://accounts.spotify.com/api/token', new URLSearchParams({
             grant_type: 'authorization_code',
@@ -56,14 +65,16 @@ app.get('/callback', async (req, res) => {
         res.redirect(`${FRONTEND_URL}/dashboard`); // Redirect to front end
     } catch (error) {
         console.error('Error getting token:', error.response?.data || error.message);
-        res.status(500).send('Authentication failed');
+        return res.redirect(`${FRONTEND_URL}/home`);
     }
 });
 
 app.get('/userdata', async (req, res) => {
     const accessToken = req.session.accessToken;
     const timeRange = req.query.time_range || "long_term";
-    if (!accessToken) return res.status(401).send('Not authenticated');
+    if (!accessToken) {
+        return res.redirect(`${FRONTEND_URL}/home`);
+    } 
 
     try {
         const [profileNameResponse, tracksResponse, artistsResponse, playlistResponse] = await Promise.all([
@@ -114,7 +125,7 @@ app.get('/userdata', async (req, res) => {
         });
     } catch (error) {
         console.error('Error fetching data:', error.response?.data || error.message);
-        res.status(500).send('Failed to fetch user data');
+        return res.redirect(`${FRONTEND_URL}/home`);
     }
 });
 
