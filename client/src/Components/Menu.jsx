@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import useMobile from '../Hooks/useMobile'
 
 function Menu() {
   const api = import.meta.env.VITE_API_BASE_URL;
@@ -11,9 +12,10 @@ function Menu() {
     window.location.href = `${api}/login`;
   };
   const isDemo = localStorage.getItem('demoMode') === 'true'
+  const mobile = useMobile();
 
   return (
-    <div className="absolute flex flex-col left-0 ml-5 mt-5 z-10">
+    <div className={`absolute flex ${mobile ? "" : "flex-col"} left-0 ml-5 mt-5 z-10`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="text-pink-100 font-bold px-4 py-2 transition-all ease-in-out duration-300 cursor-pointer"
@@ -23,7 +25,7 @@ function Menu() {
       </button>
 
       {isOpen && (
-        <div className="flex flex-col mt-2 ml-5 text-pink-100/40 space-y-5">
+        <div className={`flex ${mobile ? "space-x-5 items-center" : "flex-col space-y-5 mt-2"} ml-5 text-pink-100/40`}>
           <Link
             to="/dashboard"
             className="hover:text-green-500 transition-all ease-in-out duration-300"

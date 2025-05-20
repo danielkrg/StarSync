@@ -3,9 +3,11 @@ import GenerateHoroscope from '../Components/HoroscopeAlgorithm';
 import { useState, useEffect } from 'react';
 import Menu from '../Components/Menu'
 import Waves from '../assets/SVGs/layeredWavesHoroscope.svg?react'
+import useMobile from '../Hooks/useMobile'
 
 function Horoscope() {
     const { longTermData, shortTermData } = useUserData();
+    const mobile = useMobile()
 
     const [horoscopeArr, setHoroscopeArr] = useState(() => {
         const saved = localStorage.getItem('horoscope');
@@ -108,26 +110,26 @@ function Horoscope() {
     return (
         <div className="relative flex flex-col space-y-10 items-center min-h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
             <Menu />
-            <div className="flex h-40 justify-between">
-                <div className="w-50"></div>
-                <h1 className="mt-5 text-7xl text-center font-bold text-pink-100 pointer-events-none">
+            <div className="flex">
+                <h1 className={`${mobile ? "text-5xl mt-20" : "text-7xl mt-5"} font-bold text-pink-100`}>
                     YOUR READING:
                 </h1>
-                <div className="w-50"></div>
             </div>
-            <div className="flex flex-col w-full"> 
-                <p className="ml-30 mr-30 mb-20 text-2xl min-h-[4.5em] text-pink-100/60">
-                    {firstHoroscope}
-                    {phase === 'first' && <span className="animate-blinking-cursor">|</span>}
-                </p>
-                <p className="ml-30 mr-30 mb-20 text-2xl min-h-[3em] text-pink-100/60">
-                    {secondHoroscope}
-                    {phase === 'second' && <span className="animate-blinking-cursor">|</span>}
-                </p>
-                <p className="ml-30 mr-30 mb-10 text-2xl min-h-[3em] text-pink-100/60">
-                    {thirdHoroscope}
-                    {(phase === 'third' || phase == 'done') && <span className="animate-blinking-cursor">|</span>}
-                </p>
+            <div className="flex flex-col w-full mt-10"> 
+                <div className={`flex flex-col ${mobile ? "px-15" : "px-30"}`}>
+                    <p className="mb-20 text-2xl min-h-[4.5em] text-pink-100/60">
+                        {firstHoroscope}
+                        {phase === 'first' && <span className="animate-blinking-cursor">|</span>}
+                    </p>
+                    <p className="mb-20 text-2xl min-h-[3em] text-pink-100/60">
+                        {secondHoroscope}
+                        {phase === 'second' && <span className="animate-blinking-cursor">|</span>}
+                    </p>
+                    <p className="mb-10 text-2xl min-h-[3em] text-pink-100/60">
+                        {thirdHoroscope}
+                        {(phase === 'third' || phase == 'done') && <span className="animate-blinking-cursor">|</span>}
+                    </p>
+                </div>
                 <div className="flex flex-col items-center justify-center">
                     <button onClick={(phase !== 'done' && phase !== '') ? handleSkip : handleRegenerate} 
                     className="cursor-pointer text-pink-500 border-pink-500 border-2 hover:border-green-500 hover:text-green-500
