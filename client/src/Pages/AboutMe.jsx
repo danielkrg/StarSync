@@ -48,7 +48,7 @@ function AboutMe() {
 
     return (
     
-      <div className={`relative flex h-screen bg-gradient-to-t from-pink-950 from-50% to-indigo-950 overflow-hidden`}>
+      <div className={`relative flex min-h-screen bg-gradient-to-t from-pink-950 from-50% to-indigo-950`}>
         <div className={`${showProfile ? "blur-none" : "blur-md"} flex flex-col items-center w-full`}>
           {/* Page */}
           <div className="flex w-screen justify-between items-top p-30 pb-0 space-x-20">

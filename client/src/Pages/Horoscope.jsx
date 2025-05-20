@@ -6,7 +6,6 @@ import Wave from '../assets/waveHoroscope.svg?react'
 
 function Horoscope() {
     const { longTermData, shortTermData } = useUserData();
-    const isDemo = localStorage.getItem('demoMode') === 'true'
 
     const [horoscopeArr, setHoroscopeArr] = useState(() => {
         const saved = localStorage.getItem('horoscope');
@@ -111,7 +110,7 @@ function Horoscope() {
             <Menu />
             <div className="flex h-40 justify-between">
                 <div className="w-50"></div>
-                <h1 className="mt-5 text-7xl font-bold text-pink-100 pointer-events-none">
+                <h1 className="mt-5 text-7xl text-center font-bold text-pink-100 pointer-events-none">
                     YOUR READING:
                 </h1>
                 <div className="w-50"></div>

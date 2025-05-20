@@ -1,12 +1,29 @@
 import { useUserData } from '../Components/UserDataContext';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import Menu from '../Components/Menu'
+
+function useMobile() {
+    const [mobile, setMobile] = useState(() => window.innerWidth < 768);
+  
+    useEffect(() => {
+        const handleResize = () => {
+        setMobile(window.innerWidth < 768);
+        };
+    
+        window.addEventListener("resize", handleResize);
+    
+        // Clean up on unmount
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+  
+    return mobile;
+}
 
 function Dashboard() {
     const { longTermData, shortTermData } = useUserData();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const isDemo = localStorage.getItem('demoMode') === 'true'
+    const mobile = useMobile();
 
     if (!longTermData || !shortTermData) {
         return ( 
@@ -31,60 +48,56 @@ function Dashboard() {
     }
 
     return (
-        <div className="relative flex flex-col items-center justify-start h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
-            <div className="flex w-full justify-between items-start">
-                <Menu />
-                <h1 className="text-7xl font-bold text-pink-100 mt-5">
-                    HELLO {shortTermData.displayName.toUpperCase() }
-                </h1>
-                <button
-                    onClick={() => window.location.href = "/aboutme"}
-                    className={`opacity-0 pointer-events-none font-semibold text-pink-500 hover:text-green-500
-                    mr-5 mt-5 rounded-full cursor-pointer
-                    transition-all duration-300 ease-in-out`}
-                >
-                    Recruiters Click Here
-                </button>
+        <div className="relative flex flex-col items-center min-h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
+            <Menu />
+            <div className={`flex justify-center ${mobile ? "w-50" : "w-full"}`}>
+                <div className="flex flex-col text-center justify-center items-center">
+                    {/* GREETING */}
+                    <h1 className="text-7xl font-bold text-pink-100 mt-5">
+                        HELLO {shortTermData.displayName.toUpperCase() }
+                    </h1>
+                    {/* SCROLLER */}
+                    <div className="flex mt-5 w-120 justify-between space-x-4 text-2xl font-semibold text-pink-100">
+                        <button
+                        onClick={() => changeView("left")}
+                        className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
+                        >
+                            <ChevronLeftIcon className="h-6 w-6"/>
+                        </button>
+
+                        {views[currentIndex].label}
+
+                        <button
+                        onClick={() => changeView("right")}
+                        className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
+                        >
+                            <ChevronRightIcon className="h-6 w-6"/>
+                        </button>
+                    </div>
+                    {/* DOTS */}
+                    <div className="flex space-x-2 mt-2">
+                        <div className={`rounded-full w-3 h-3 border-1 border-pink-100/40 transition-all duration-300 ease-in-out
+                                        ${currentIndex === 0 ? "bg-pink-100/80" : "bg-transparent"}`}></div> 
+                        <div className={`rounded-full w-3 h-3 border-1 border-pink-100/40 transition-all duration-300 ease-in-out
+                                            ${currentIndex === 1 ? "bg-pink-100/80" : "bg-transparent"}`}></div> 
+                        <div className={`rounded-full w-3 h-3 border-1 border-pink-100/40 transition-all duration-300 ease-in-out
+                                            ${currentIndex === 2 ? "bg-pink-100/80" : "bg-transparent"}`}></div> 
+                        <div className={`rounded-full w-3 h-3 border-1 border-pink-100/40 transition-alll duration-300 ease-in-out
+                                            ${currentIndex === 3 ? "bg-pink-100/80" : "bg-transparent"}`}></div> 
+                    </div>
+                </div>
             </div>
 
-            <div className="absolute mt-30 flex w-175 justify-between space-x-4 text-2xl font-semibold text-pink-100">
-                <button
-                onClick={() => changeView("left")}
-                className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
-                >
-                    <ChevronLeftIcon className="h-6 w-6"/>
-                </button>
-
-                {views[currentIndex].label}
-
-                <button
-                onClick={() => changeView("right")}
-                className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
-                >
-                    <ChevronRightIcon className="h-6 w-6"/>
-                </button>
-            </div>
-
-            <div className="absolute flex space-x-2 mt-45">
-                <div className={`rounded-full w-3 h-3 border-1 border-pink-100/40 transition-all duration-300 ease-in-out
-                                ${currentIndex === 0 ? "bg-pink-100/80" : "bg-transparent"}`}></div> 
-               <div className={`rounded-full w-3 h-3 border-1 border-pink-100/40 transition-all duration-300 ease-in-out
-                                ${currentIndex === 1 ? "bg-pink-100/80" : "bg-transparent"}`}></div> 
-               <div className={`rounded-full w-3 h-3 border-1 border-pink-100/40 transition-all duration-300 ease-in-out
-                                ${currentIndex === 2 ? "bg-pink-100/80" : "bg-transparent"}`}></div> 
-               <div className={`rounded-full w-3 h-3 border-1 border-pink-100/40 transition-alll duration-300 ease-in-out
-                                ${currentIndex === 3 ? "bg-pink-100/80" : "bg-transparent"}`}></div> 
-            </div>
-
-            <div className="absolute mt-40 w-full">
+            <div className="w-full">
                 {views.map((view, i) => (
                     <div key = {i}
-                    className = {`absolute inset-0 transition-opacity duration-500 ${
-                        currentIndex === i ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                        }`}
+                    className={`inset-0 transition-opacity duration-500
+                        ${currentIndex === i ? "opacity-100" 
+                        : `${mobile ? "absolute top-[191px]" : "absolute top-[133px]"} opacity-0 pointer-events-none`} 
+                        `}
                     >
                         {view.data && view.data.length > 0 ? (
-                            <div className="mt-15 ml-15 items-center grid grid-cols-2 gap-full">
+                            <div className={`mt-15 ml-15 items-center grid ${mobile ? "grid-cols-1" : "grid-cols-2"} gap-full`}>
                             {view.data.map((item, index) => (
                                 <button
                                     key={index}
@@ -134,7 +147,6 @@ function Dashboard() {
                 ))}
             </div>
         </div>
-
     );
 }
 
