@@ -2,7 +2,7 @@ import { useUserData } from '../Components/UserDataContext';
 import GenerateHoroscope from '../Components/HoroscopeAlgorithm';
 import { useState, useEffect } from 'react';
 import Menu from '../Components/Menu'
-import Wave from '../assets/waveHoroscope.svg?react'
+import Waves from '../assets/SVGs/layeredWavesHoroscope.svg?react'
 
 function Horoscope() {
     const { longTermData, shortTermData } = useUserData();
@@ -140,7 +140,7 @@ function Horoscope() {
                         </span>
                     </button>
                     <div className="w-full pointer-events-none z-0">
-                        <Wave className="w-full h-auto"/>
+                        <Waves className="w-full h-auto"/>
                     </div>
                 </div>
             </div>  

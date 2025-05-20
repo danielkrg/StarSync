@@ -5,7 +5,7 @@ import AboutMe from "./AboutMe";
 import Error from "./Error";
 import { UserDataProvider } from '../Components/UserDataContext';
 import { useState, useEffect } from 'react';
-import Waves from '../assets/layered-waves.svg?react'
+import Waves from '../assets/SVGs/layeredWavesHome.svg?react'
 
 function Home() {
   const api = import.meta.env.VITE_API_BASE_URL;

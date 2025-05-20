@@ -5,7 +5,6 @@ import Board from '../assets/Images/Board.jpg'
 import Grad from '../assets/Images/Grad.jpg'
 import Kelp from '../assets/Images/Kelp.jpg'
 import Tent from '../assets/Images/Tent.jpg'
-import Waves from '../assets/layered-waves.svg?react'
 
 function AboutMe() {
     const [showProfile, setShowProfile] = useState(false);
