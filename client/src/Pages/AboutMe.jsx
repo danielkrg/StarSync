@@ -119,10 +119,6 @@ function AboutMe() {
                 </div>
               </div>
           </div>
-          {/* Waves */}
-          <div className="absolute top-0 bottom-0 left-0 w-full pointer-events-none z-0">
-            <Waves className="w-full h-auto scale-x-[-1]"/>
-          </div>
         </div>
 
         {/* Security */}

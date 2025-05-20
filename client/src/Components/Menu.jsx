@@ -13,7 +13,7 @@ function Menu() {
   const isDemo = localStorage.getItem('demoMode') === 'true'
 
   return (
-    <div className="flex flex-col w-70 ml-5 mt-5">
+    <div className="absolute flex flex-col left-0 ml-5 mt-5 z-10">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="text-pink-100 font-bold px-4 py-2 transition-all ease-in-out duration-300 cursor-pointer"

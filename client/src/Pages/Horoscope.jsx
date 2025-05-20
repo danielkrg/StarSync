@@ -2,7 +2,7 @@ import { useUserData } from '../Components/UserDataContext';
 import GenerateHoroscope from '../Components/HoroscopeAlgorithm';
 import { useState, useEffect } from 'react';
 import Menu from '../Components/Menu'
-import Waves from '../assets/layered-waves.svg?react'
+import Wave from '../assets/waveHoroscope.svg?react'
 
 function Horoscope() {
     const { longTermData, shortTermData } = useUserData();
@@ -107,49 +107,44 @@ function Horoscope() {
     }, [regenerate, shortTermData, longTermData, horoscopeArr, firstHoroscope, secondHoroscope, thirdHoroscope, phase]);
 
     return (
-        <div className="relative flex flex-col space-y-10 items-center h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
-            <div className="flex w-full justify-between items-start">
-                <Menu />
-                <h1 className="mt-5 text-7xl font-bold text-pink-100">
+        <div className="relative flex flex-col space-y-10 items-center min-h-screen bg-gradient-to-t from-pink-950 to-indigo-950">
+            <Menu />
+            <div className="flex h-40 justify-between">
+                <div className="w-50"></div>
+                <h1 className="mt-5 text-7xl font-bold text-pink-100 pointer-events-none">
                     YOUR READING:
                 </h1>
-                <button
-                    onClick={() => window.location.href = "/aboutme"}
-                    className={`opacity-0 pointer-events-none font-semibold text-pink-500 hover:text-green-500
-                    mr-5 mt-5 rounded-full cursor-pointer
-                    transition-all duration-300 ease-in-out`}
-                >
-                    Recruiters Click Here
-                </button>
+                <div className="w-50"></div>
             </div>
-            <div className="absolute mt-50 space-y-30 w-full h-250"> 
-                <p className="ml-30 mr-30 text-2xl text-pink-100/60">
+            <div className="flex flex-col w-full"> 
+                <p className="ml-30 mr-30 mb-20 text-2xl min-h-[4.5em] text-pink-100/60">
                     {firstHoroscope}
                     {phase === 'first' && <span className="animate-blinking-cursor">|</span>}
                 </p>
-                <p className="ml-30 mr-30 text-2xl text-pink-100/60">
+                <p className="ml-30 mr-30 mb-20 text-2xl min-h-[3em] text-pink-100/60">
                     {secondHoroscope}
                     {phase === 'second' && <span className="animate-blinking-cursor">|</span>}
                 </p>
-                <p className="ml-30 mr-30 text-2xl text-pink-100/60">
+                <p className="ml-30 mr-30 mb-10 text-2xl min-h-[3em] text-pink-100/60">
                     {thirdHoroscope}
                     {(phase === 'third' || phase == 'done') && <span className="animate-blinking-cursor">|</span>}
                 </p>
-            </div>
-            <button onClick={(phase !== 'done' && phase !== '') ? handleSkip : handleRegenerate} 
-            className="absolute mt-185 cursor-pointer text-pink-500 border-pink-500 border-2 hover:border-green-500 hover:text-green-500
-            font-semibold py-2 px-4 w-35 rounded-full mb-30 transition-all duration-300 ease-in-out
-            hover:shadow-[0_0_10px_2px_rgba(29,185,84,0.6)]">
-                <span
-                key={phase}
-                className="animate-fadeInFast">
-                    {(phase !== 'done' && phase !== '') ? "Skip" : "Regenerate"}
-                </span>
-            </button>
-            {/* Waves */}
-            <div className="absolute top-0 bottom-0 left-0 w-full pointer-events-none z-0">
-                <Waves className="w-full h-auto scale-x-[-1]"/>
-            </div>
+                <div className="flex flex-col items-center justify-center">
+                    <button onClick={(phase !== 'done' && phase !== '') ? handleSkip : handleRegenerate} 
+                    className="cursor-pointer text-pink-500 border-pink-500 border-2 hover:border-green-500 hover:text-green-500
+                    font-semibold py-2 px-4 w-35 rounded-full transition-all duration-300 ease-in-out
+                    hover:shadow-[0_0_10px_2px_rgba(29,185,84,0.6)]">
+                        <span
+                        key={phase}
+                        className="animate-fadeInFast">
+                            {(phase !== 'done' && phase !== '') ? "Skip" : "Regenerate"}
+                        </span>
+                    </button>
+                    <div className="w-full pointer-events-none z-0">
+                        <Wave className="w-full h-auto"/>
+                    </div>
+                </div>
+            </div>  
         </div>
     );
 }
