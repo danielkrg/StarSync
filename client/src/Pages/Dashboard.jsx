@@ -41,7 +41,7 @@ function Dashboard() {
                         HELLO {shortTermData.displayName.toUpperCase() }
                     </h1>
                     {/* SCROLLER */}
-                    <div className={`flex mt-5 ${mobile ? "w-100" : "w-120"} justify-between space-x-4 text-2xl font-semibold text-pink-100`}>
+                    <div className={`flex mt-5 ${mobile ? "w-100" : "w-120"} justify-between items-center space-x-4 text-2xl font-semibold text-pink-100`}>
                         <button
                         onClick={() => changeView("left")}
                         className="h-6 w-6 hover:text-green-500 transition-all duration-300 ease-in-out cursor-pointer"
@@ -118,7 +118,7 @@ function Dashboard() {
                             ))}
                             </div>
                         ) : (
-                        <div className={`flex flex-col w-full mt-50 space-y-20 items-center justify-center`}>
+                        <div className={`flex flex-col mt-50 space-y-20 text-center px-20`}>
                             <div className="text-2xl font-semibold mt-6 text-pink-100">
                                 We couldn't find any data...
                             </div>
