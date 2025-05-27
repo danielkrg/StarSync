@@ -25,7 +25,7 @@ function AboutMe() {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      if (code === "111111") {
+      if (code === "HireMe") {
         localStorage.setItem('demoMode', 'true');
         setShowProfile(true);
       } else {
@@ -138,6 +138,7 @@ function AboutMe() {
                       setCode(e.target.value)}
                     }
                     maxLength={6}
+                    type={'password'}
                     className="focus:outline-none text-5xl mb-4 w-64 tracking-widest"
                   />
                   {/* Array of dissapearing underscores */}

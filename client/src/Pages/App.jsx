@@ -9,7 +9,7 @@ import Waves from '../assets/SVGs/layeredWavesHome.svg?react'
 
 function Home() {
   const api = import.meta.env.VITE_API_BASE_URL;
-  const messages = ['Spotify Stats', 'Your Top Tracks', 'Music Horoscope', 'Log in to Begin'];
+  const messages = ['Welcome to StarSync', 'View Your Top Tracks', 'Discover Your Musical Horoscope', 'Log in to Begin'];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [phase, setPhase] = useState('typing');
@@ -67,9 +67,9 @@ function Home() {
         </button>
       </div>
 
-      <div className="flex flex-col items-center space-y-30 pt-50 flex-grow z-10">
+      <div className="flex flex-col items-center space-y-40 text-center pt-50 flex-grow z-10">
         <h1
-          className="font-bold text-5xl text-pink-100 leading-tight h-14"
+          className="font-bold text-5xl text-pink-100 leading-tight h-14 px-5"
         >
           {displayedText}
           <span className="animate-blinking-cursor">|</span>

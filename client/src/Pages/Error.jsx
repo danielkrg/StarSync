@@ -2,10 +2,9 @@ import { useState, useEffect} from "react";
 import useMobile from '../Hooks/useMobile'
 
 function Error() {
-    const api = import.meta.env.VITE_API_BASE_URL;
     const messages = [
-        'YOU FOUND A BUG',
-        'PLEASE TRY AGAIN',
+        'DUE TO NEW SPOTIFY POLICIES, APPS LIKE THIS ARE NO LONGER ALLOWED TO BE PUBLIC...',
+        'PLEASE CONTACT ME TO OBTAIN DEMO CODE OR ACCESS TO FULL VERSION',
     ];
     const [currentIndex, setCurrentIndex] = useState(0);
     const [displayedText, setDisplayedText] = useState('');
@@ -20,7 +19,7 @@ function Error() {
             if (displayedText.length < currentMessage.length) {
               timeout = setTimeout(() => {
                 setDisplayedText(currentMessage.slice(0, displayedText.length + 1));
-              }, 100);
+              },50);
             } 
             else {
               // Typing done → pause before deleting
@@ -35,7 +34,7 @@ function Error() {
             if (displayedText.length > 0) {
                 timeout = setTimeout(() => {
                 setDisplayedText(currentMessage.slice(0, displayedText.length - 1));
-                }, 50);
+                }, 20);
             }
             else {
                 setCurrentIndex((prev) => (prev + 1) % messages.length);
@@ -53,17 +52,17 @@ function Error() {
 
     return (
         <div className="relative flex flex-col h-screen bg-gradient-to-t from-rose-700/80 from-10% to-slate-900 overflow-hidden">
-            <div className="flex flex-col items-center space-y-50 mt-25 flex-grow z-10">
+            <div className="flex flex-col items-center text-center space-y-50 mt-25 flex-grow z-10">
                 <h1
                     className={`font-bold ${mobile ? "text-6xl" : "text-9xl"} text-pink-100 leading-tight h-14`}
                 >
                     ERROR:
                 </h1>
                 <h1
-                    className={`font-bold ${mobile ? "text-3xl" : "text-5xl"} text-pink-100 leading-tight h-14`}
+                    className={`font-bold ${mobile ? "text-3xl" : "text-5xl"} text-pink-100 leading-tight h-14 px-5`}
                 >
                     {displayedText}
-                    <span className="animate-blinking-cursor text-5xl">|</span>
+                    <span className={`animate-blinking-cursor ${mobile ? "text-3xl" : "text-5xl"}`}>|</span>
                 </h1>
                 <button
                     onClick={handleHome}
