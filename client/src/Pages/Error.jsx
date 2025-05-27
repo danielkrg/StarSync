@@ -4,7 +4,7 @@ import useMobile from '../Hooks/useMobile'
 function Error() {
     const messages = [
         'DUE TO NEW SPOTIFY POLICIES, APPS LIKE THIS ARE NO LONGER ALLOWED TO BE PUBLIC...',
-        'PLEASE CONTACT ME TO OBTAIN DEMO CODE OR ACCESS TO FULL VERSION',
+        'PLEASE CONTACT STARSYNCDEV@GMAIL.COM TO OBTAIN THE DEMO CODE OR TO ACCESS FULL VERSION',
     ];
     const [currentIndex, setCurrentIndex] = useState(0);
     const [displayedText, setDisplayedText] = useState('');
