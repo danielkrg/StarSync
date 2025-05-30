@@ -4,7 +4,7 @@ A dynamic React project that emplays Spotify's API to display user listening hab
 This application provides smooth transitions between interactive, user-friendly pages and works across a variety of devices. 
 
 ## Live Demo:
-[starsync.onrender.com](starsync.onrender.com)
+[starsync.onrender.com](starsync.onrender.com) \
 To view demo: Click the 'recruiters' button in the top right and use code 'HireMe'
 
 ## Features:
