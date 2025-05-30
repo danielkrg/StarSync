@@ -5,6 +5,7 @@ This application provides smooth transitions between interactive, user-friendly 
 
 ## Live Demo:
 [starsync.onrender.com](starsync.onrender.com)
+To view demo: Click the 'recruiters' button in the top right and use code 'HireMe'
 
 ## Features:
 - OAuth-based Spotify authentication
@@ -27,7 +28,7 @@ This application provides smooth transitions between interactive, user-friendly 
 ## API Limitations:
 As of May 15th 2025, Spotify requires legal business licenses and 250k+ monthly active users for extended usage.
 Thus the potential userbase for this project is currently limited to 25 users, pre-authorized by an email account.
-This project remains functional in the demo mode with code 'HireMe' — contact me for full access.
+This project remains functional in the demo mode — contact me for full access.
 
 ## Contact:
 Email me at danielkrg11@gmail.com
